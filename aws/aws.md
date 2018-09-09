@@ -26,7 +26,7 @@ andy amount of data from anywhere on the web.
 - S3 is object based (allow to upload files)
 - Files can be from 0 bytes to 5 TB
 - Unlimited storage.
-- Files are stored in Buckets.
+-  Files are stored in Buckets.
 - S3 in a universal namespace, names have to be unique globally (bucket names)
 - when you upload a file to S3 you will get a HTTP 200 response if the upload
 was successful.
