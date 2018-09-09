@@ -1,4 +1,4 @@
-##IAM :
+## IAM :
 
 - IAM consists of the following : Users, Groups (a way to group users and apply
 policies to them collectively ), Roles, Policy documents
@@ -18,7 +18,7 @@ need to regenerate them.
 groups and users within IAM.
 - "root" -> Administrator access
 
-##S3 :
+## S3 :
 
 - S3 provides developers and IT Teams with secure, highly-scalable object
 storage. Easy to use with a simple web services interface to store and retrieve
@@ -53,7 +53,7 @@ propogate)
 - Versioning must be enabled on both the source and destination buckets.
 - Regions must be unique.
 - Files in an existing bucket are not replicated automatically. All subsequent
-updated files will be replicated automatically. 
+updated files will be replicated automatically.
 - You cannot replicate to multiple buckets or use daisy chaining
 - Delete markers are replicated
 - Deleting individual versions or delete markers will not be replicated
