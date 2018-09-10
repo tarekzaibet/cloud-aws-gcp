@@ -1,4 +1,4 @@
-## IAM :
+# IAM :
 
 - IAM consists of the following : Users, Groups (a way to group users and apply
 policies to them collectively ), Roles, Policy documents
@@ -18,7 +18,7 @@ need to regenerate them.
 groups and users within IAM.
 - "root" -> Administrator access
 
-## S3 :
+# S3 :
 
 - S3 provides developers and IT Teams with secure, highly-scalable object
 storage. Easy to use with a simple web services interface to store and retrieve
@@ -42,14 +42,14 @@ propogate)
 - by default buckets are private and all objects stored inside them are private
 - control access to bucket using ACL or using bucket policies
 
-# Versioning:
+## Versioning:
 - stores all versions of an object (including all wirtes and even if you delete an object)
 - great backup tool
 - once enabled can't be disabled, but can be suspended
 - integrates with lifecyle rules
 - can have additional level of security by adding MFA for delete operations.
 
-# Cross region replication:
+## Cross region replication:
 - Versioning must be enabled on both the source and destination buckets.
 - Regions must be unique.
 - Files in an existing bucket are not replicated automatically. All subsequent
@@ -58,7 +58,7 @@ updated files will be replicated automatically.
 - Delete markers are replicated
 - Deleting individual versions or delete markers will not be replicated
 
-# Life cycle management :
+## Life cycle management :
 configured within a bucket
 - can be used in conjunction with versioning (with or without versioning)
 - can be applied to current versions and previous versions
@@ -66,7 +66,7 @@ configured within a bucket
 - you can program when to delete objects (permanently delete)
 goal : reduce cost of storage if objects are not used / accessed
 
-# Security & Encryption :
+## Security & Encryption :
 - by default all newly created buckets are private
 - you can setup access control to your buckets using :
   bucket policies
@@ -83,7 +83,7 @@ made to the S3 bucket. this can be done to another bucket.
       - SSE-C Server side encryption with customer provided keys
 - client side encryption   
 
-## CloudFront :
+# CloudFront :
 
  Definition : A content delivery network (CDN) is a system of distributed servers (network) that deliver webpages and other web content to a user based
  on the geographic locations of the user, the origin of the webpage and a content delivery server.
