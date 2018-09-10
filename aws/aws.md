@@ -34,7 +34,7 @@ was successful.
 - Read after write consistency for PUTS of new objects.
 - Eventual consistency for overwrite PUTS and DELETES ( can take some time to
 propogate)
-- S3 Storage classes / tiers : S3, S3-IA (infr accessed), S3 One zone- IA, Glacier
+- S3 Storage classes / tiers : S3, S3-IA (infrequetly accessed), S3 One zone- IA, Glacier
 (Archival 3 to 5 hours retrival).
 - S3 object : key (name), value(data), version id, metadata, subresources
 (ACL,Torrent)
@@ -57,3 +57,43 @@ updated files will be replicated automatically.
 - You cannot replicate to multiple buckets or use daisy chaining
 - Delete markers are replicated
 - Deleting individual versions or delete markers will not be replicated
+
+# Life cycle management :
+configured within a bucket
+- can be used in conjunction with versioning (with or without versioning)
+- can be applied to current versions and previous versions
+- following action can be done : transition to S3 - IA after certain time then to Glacier after certain period
+- you can program when to delete objects (permanently delete)
+goal : reduce cost of storage if objects are not used / accessed
+
+# Security & Encryption :
+- by default all newly created buckets are private
+- you can setup access control to your buckets using :
+  bucket policies
+  access control lists (ACL)
+- S3 buckets can be configured to create access logs which log all requests
+made to the S3 bucket. this can be done to another bucket.
+
+* Encryption :
+- in transit; (sending info from and to ur bucket) uses SSL/TLS  (HTTPS)
+- at rest :
+    server side encryption :
+      - S3 Managed Keys - SSE-S3 ( each object with unique key)
+      - SSE-KMS (Amws key management service, Managed keys)
+      - SSE-C Server side encryption with customer provided keys
+- client side encryption   
+
+## CloudFront :
+
+ Definition : A content delivery network (CDN) is a system of distributed servers (network) that deliver webpages and other web content to a user based
+ on the geographic locations of the user, the origin of the webpage and a content delivery server.
+
+ Terminology :
+ - Edge location : this is the location where content will be cached. separate to region or availability zone.
+ - Origin : the origin of all the files that the CDN will distribute, this can be either an S3 bucket, an EC2 instance, ELB or Route 53.
+ - Distribution: this is the name given to the CDN which consiste of a collection of edge locations.
+ - Web Distribution - Used for websites
+ - RTMP - used for media streaming
+ - Edge locations are not read only, you can put objects on edge location
+ - Objects are cached for the life of the TTL
+ - you can clear cached objects, but you will be charged
