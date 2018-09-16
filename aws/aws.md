@@ -145,3 +145,32 @@ made to the S3 bucket. this can be done to another bucket.
     Transfer files through NFS with a GUI		      ✓
 
 READ S3 FAQ BEFORE THE EXAM
+
+
+## ---- EC2 -----
+
+# EC2
+
+- 4 pricing models :
+
+    - On demand : allows you to pay a fixed rate by the hour (or by second) with no commitment
+
+    - Reserved  : provides you with a capacity reservation, and offer a significant discount on the hourly charge for an instance. 1 year or 3 years terms.
+
+    - Spot : enables you to bid whatever price you want for instance capacity, providing for even greater savings if your applications have flexible start and end times. ! if a spot instance is termniated by amazon EC2, you will not be charged for a partial hour of usage. However if you terminate the instance yourself, you will be charged for the complete hour in which the instance ran.
+
+    - Dedicated Hosts : physical EC2 server dedicated for your use. Dedicated Hosts can help you reducs costs by allowing you to use your existing server-bound software licenses.
+
+- instance types :
+    FIGHT DR MC PX
+
+- EBS Volume types :
+
+    - SSD :
+      - General purpose SSD : balances price and performance for a wide variety of workloads.
+      - Provisioned IOPS SSD : Highest-performance SSD volumes for missions-critical low-latency or high-throughput workloads  
+
+    - Magnetic :
+      - Throughout optimized HDD : Low cost HDD volumes designed for frequently accessed, thoughput-intensive workloads.
+      - Cold HDD : Lowest cost HDD volume designed for less frequently accessed workloads
+      - Magnetic : Previous generation.Can be a boot volume.
