@@ -34,7 +34,7 @@ was successful.
 - Read after write consistency for PUTS of new objects.
 - Eventual consistency for overwrite PUTS and DELETES ( can take some time to
 propogate)
-- S3 Storage classes / tiers : S3, S3-IA (infrequetly accessed), S3 One zone- IA, Glacier
+- S3 Storage classes / tiers : S3 (99,99 availability and 99.99999 durability) stored redundantly across multipe devices in multiple facilities, S3-IA (infrequetly accessed) lower fee than S3 but you are charged a retrival fee (RRS), S3 One zone- IA, Glacier
 (Archival 3 to 5 hours retrival).
 - S3 object : key (name), value(data), version id, metadata, subresources
 (ACL,Torrent)
@@ -97,3 +97,51 @@ made to the S3 bucket. this can be done to another bucket.
  - Edge locations are not read only, you can put objects on edge location
  - Objects are cached for the life of the TTL
  - you can clear cached objects, but you will be charged
+
+# Storage Gateway :
+
+ 4 types : NFS (file gateway), Volumes Gateway : stored volumes / cached volumes, Tape Gateway
+ - File Gateway (in exam) : files are stored as objects in your S3 buckets. Accessed through a network file (nfs) mount point. Ownership, permissions and timestamps are durably stored in S3 in the user-metada of the object associated with the file.Once objects are transferred to S3, they can be managed as native S3 objects, and bucket policies such as versioning, lifecycle management, and cross-regions replication apply directly to objects stored in your bucket. For flat files, stored directly on S3.
+
+ - Volumes Gateway :
+    - stored volumes: entire dataset is stored on site and is asynchrously backed up to S3.
+    - cached volumes : entire dataset is stored on s3 and the most frequently accessed data is cached on site.
+
+ - Gateway virtual tape libray :
+    used for backup and uses populer backup applications like NetBackUp, Backup Exec, Veeam etc.
+
+    use cases:
+    - store flat files storage cost min -> file gateway
+    - data center / backup for servers, physical tapes -> Gateway virtual tape
+    - media company : much  storage not all on site (cached volumes), financial to keep latency (stored volumes)
+
+# Snowball
+
+    - AWS Import / Export disk (old snowball) : accelerates moving large amounts of data into and out of the aws cloud using portable sotrage devices for transport. AWS Import / Export disk transfers your data directly onto and off of storage devices using amazone's high-speed internal network and bypassing the internet.
+
+    - AWS Snowball is a service that accelerates transferring large amounts of data into and out of AWS using physical storage devices, bypassing the Internet. Each AWS Snowball device type can transport data at faster-than internet speeds. This transport is done by shipping the data in the devices through a regional carrier. The devices are rugged shipping containers, complete with E Ink shipping labels.
+
+    - With a Snowball, you can transfer hundreds of terabytes or petabytes of data between your on-premises data centers and Amazon Simple Storage Service (Amazon S3). AWS Snowball uses Snowball appliances and provides powerful interfaces that you can use to create jobs, transfer data, and track the status of your jobs through to completion. By shipping your data in Snowballs, you can transfer large amounts of data at a significantly faster rate than if you were transferring that data over the Internet, saving you time and money.
+
+    - Note
+    There are many options for transferring your data into AWS. Snowball is intended for transferring large amounts of data. If you want to transfer less than 10 terabytes of data between your on-premises data centers and Amazon S3, Snowball might not be your most economical choice.
+    Snowball uses Snowball appliances shipped through your region's carrier. Each Snowball is protected by AWS Key Management Service (AWS KMS) and made physically rugged to secure and protect your data while the Snowball is in transit. In the US regions, Snowballs come in two sizes: 50 TB and 80 TB. All other regions have 80 TB Snowballs only.
+
+    storage capacity (usable capacity)	Snowball	Snowball Edge
+    50 TB (42 TB) - US regions only	     ✓
+    80 TB (72 TB)	                       ✓
+    100 TB (83 TB)		                                ✓
+    100 TB Clustered (45 TB per node)		              ✓
+
+
+        Use case	                       Snowball	Snowball Edge
+    Import data into Amazon S3	               ✓	✓
+    Export from Amazon S3	                     ✓	✓
+    Durable local storage		                      ✓
+    Local compute with AWS Lambda		              ✓
+    Amazon EC2 compute instances		              ✓
+    Use in a cluster of devices		                ✓
+    Use with AWS Greengrass (IoT)		              ✓
+    Transfer files through NFS with a GUI		      ✓
+
+READ S3 FAQ BEFORE THE EXAM
