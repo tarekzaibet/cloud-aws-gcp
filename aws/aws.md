@@ -174,3 +174,35 @@ READ S3 FAQ BEFORE THE EXAM
       - Throughout optimized HDD : Low cost HDD volumes designed for frequently accessed, thoughput-intensive workloads.
       - Cold HDD : Lowest cost HDD volume designed for less frequently accessed workloads
       - Magnetic : Previous generation.Can be a boot volume.
+
+# Security group basics :
+
+- All inbound traffic is blocked by default.
+- All outbound traffic is allowed.
+- Changes to security groups take effect immediately.
+- You can have any number of EC2 instances within a security group.
+- Security groups are stateful :
+    - if you create an inbound rule allowing traffic in, that traffic is automatically allowed back out again.
+- You cannot block specific IP addresses using Security Groups, instead use Network Access Control Lists.
+- You can specify allow rules, but not deny rules.
+
+
+# EBS Volumes and snapshots :
+
+- Volumes exist on EBS : Virtual Hard Disk
+- Snapshots exist on S3.
+- Snapshots are point in time copies of Volumes.
+- Snapshots are incremental - this means that only the blocks that have change since you last snapshot are moved to S3.
+- If its the first snapshot it may take time to create.
+
+- To create a snapshot for Amazon EBS volumes that serve as root devices, you should stop the instance before taking the snapshot.
+- However you can take a snap while the instance is running.
+- IMPORTANT : you can change EBS volumes sizes on the fly, including changing the size and storage type.
+- You can create AMI'S from EBS-backed instances and snapshots.  
+- IMPORTANT : volumes will ALWAYS be in the same AZ as the EC2 instance.
+- To move an EC2 volume from on AZ/Region to another, take a snap or an image of it, then copy it to the new AZ/Region.
+- Snapshots of encrypted volumes are encrypted automatically.
+- Volumes restored from encrypted snapshots are encrypted automatically.
+- You can share snapshots, but only if thet are unencrypted.
+   - these snapshots can be shared with other AWS accounts or made public.
+- By default the root volume will be deleted if instance is terminated, but we can uncheck that.
