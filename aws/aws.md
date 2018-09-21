@@ -239,8 +239,23 @@ Solution : Take an application consistent snapshot.
 - EBS Volumes : the root device for an instance launched from the AMI is an Amazon EBS volumes created from an Amazon EBS snapshot.
 - Instance store : the root device for an instance launched from the AMI is an instance store volume created from a template stored in Amazon S3.
 
-- Instance store volumes are sometimes called epehemeral storage. 
+- Instance store volumes are sometimes called epehemeral storage.
 - Instance store volumes cannot be stopped. if the underlying host fails, you will lose your data.
 - EBS backed instances can be stopped. You will not lose the data of this instance if it is stopped.
 - You can reboot both, you will not lose your data.
 - By default, both ROOT volumes will be deleted on termination, however with EBS volumes, you can tell AWS to keep the root device volume.
+
+# Elastic Load Balancer ELB :
+
+- 3 types of load balancer :
+      - Application Load Balancers
+      - Network Load Balancers
+      - Classic Load Balancers
+- 504 error means the gateway has timed out. This means that the application not responding within the idle timeout period.
+  - Trouble shoot the application. Is the web server or database server ?
+- If you need the IPv4 address of your end user, look for the X-Forwarded-For Header.
+
+- Instances monitored by ELB are reported as : inService or OutOfService
+- Health Checks check the instance health by talking to it
+- Have their own DNS name. You are never given an IP address.
+- Read the ELB FAQ for classic load balancers
