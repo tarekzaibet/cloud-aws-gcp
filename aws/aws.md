@@ -206,3 +206,41 @@ READ S3 FAQ BEFORE THE EXAM
 - You can share snapshots, but only if thet are unencrypted.
    - these snapshots can be shared with other AWS accounts or made public.
 - By default the root volume will be deleted if instance is terminated, but we can uncheck that.
+
+# RAID, Volumes & Snapshots
+- RAID = Redundant Array of Independent Disks.
+    RAID 0 : Stripped, No Redundancy, Goof performance
+    RAID 1 : Mirrored, Redundancy
+    RAID 5 : NEVER USE IT. Good for reads, bad for writes
+    RAID 10 : Stripped & Mirrored, Good Redundancy, Good performance
+
+- How can I take a Snapshot of a RAID Array :
+Problem : take a snapshots, the snapshot excludes data held in the cache by applications and the OS. This tend not to matter on a single volume, however using multiple volumes in a RAID array, this can be a problem due to interdependencies of the array.
+
+Solution : Take an application consistent snapshot.
+    - stop the app from writing to disk
+    - flush all caches to the disk
+      - how can we do this ?
+        - freeze the file system
+        - unmount the RAID Array
+        - shutting down the associated EC2 instance.
+
+# Volume vs Snapshot
+
+- to create a snapshot for amazon EBS volumes that serve as root devices, you should stop the instance before taking the snapshot.
+- Snapshots of ENCRYPTED volumes are AUTOMATICALLY ENCRYPTED.
+- Volumes restored from encrypted snapshots are encrypted automatically.
+- You can share snapshots, but only if they are unencrypted.
+    - these snapshots can be shared with other aws accounts or made public.
+
+# EBS vs Instance Store
+
+- All AMI are either backed by : EBS or instance store.
+- EBS Volumes : the root device for an instance launched from the AMI is an Amazon EBS volumes created from an Amazon EBS snapshot.
+- Instance store : the root device for an instance launched from the AMI is an instance store volume created from a template stored in Amazon S3.
+
+- Instance store volumes are sometimes called epehemeral storage. 
+- Instance store volumes cannot be stopped. if the underlying host fails, you will lose your data.
+- EBS backed instances can be stopped. You will not lose the data of this instance if it is stopped.
+- You can reboot both, you will not lose your data.
+- By default, both ROOT volumes will be deleted on termination, however with EBS volumes, you can tell AWS to keep the root device volume.
