@@ -259,3 +259,15 @@ Solution : Take an application consistent snapshot.
 - Health Checks check the instance health by talking to it
 - Have their own DNS name. You are never given an IP address.
 - Read the ELB FAQ for classic load balancers
+
+# Cloudwatch EC2 :
+
+- Standard monitoring : 5 minutes
+- Detailed monitoring : 1 minute
+- What can you do with Cloudwatch ? :
+    - Dashboards : creates awesome dashboards to see what is happening with your aws environment.
+    - Alarms : Allows you to ser alarms that notify you when particular thresholds are hit.
+    - Events : cloud watch events helps you respond to stats changes in your AWS ressources.
+    - Logs : cloudwatch logs helps you to aggregate, monitor, and store logs.
+
+- Cloudwatch is for logging / monitoring where is cloud trail is for auditing.  
