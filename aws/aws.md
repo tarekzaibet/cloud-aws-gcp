@@ -271,3 +271,33 @@ Solution : Take an application consistent snapshot.
     - Logs : cloudwatch logs helps you to aggregate, monitor, and store logs.
 
 - Cloudwatch is for logging / monitoring where is cloud trail is for auditing.  
+
+# AWS Command Line & EC2 :
+
+1 - created and launched EC2 Instance
+2 - added new user in IAM for programatic access, attached existing policies to user (admin access) then create user that giver secret and key id.
+3 - we connect to the machine with my key.
+4 - aws s3 ls : here we have unable to locat credentials
+5 - aws configue to put acces + secret id
+6 - we have access to s3
+7 - !!! CREDENTIALS ARE STORED WITHIN THE MACHINE WHICH MAKES IT VULNERABLE TO ACCESS THE AWS ACCOUNT VIA COMMAND LINE WITH THE CREDENTIALS, CAN START PROVISION MACHINE USING YOUR ACCOUNT TO MAKE BITCOIN MINING !!!
+
+SOLUTION : use IAM Roles. Attached to EC2 instances.
+
+# S3 CLI & Regions :
+
+if you want to copy a file from a specific region to EC2 instance directory it's better to put the --region param to specifiy from which region you are copying.
+
+example : aws s3 cp -- recursive S3://acloudguru-euwest2 /home/ec2-user --region eu-west-2.
+
+# Bootstrap scripts to provision EC2 :
+
+you can add a bash script in the advanced details then user data of the Configure instance section when creating EC2 Instance.
+
+that script will automatically provision the machine with specific modules such as an apache server (httpd)
+
+# EC2 Metadata : 
+
+curl http://169.254.169.254/latest/meta-data/  
+
+curl http://169.254.169.254/latest/user-data/ (this will give you the bootstrap script)  
