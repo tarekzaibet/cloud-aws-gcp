@@ -296,8 +296,31 @@ you can add a bash script in the advanced details then user data of the Configur
 
 that script will automatically provision the machine with specific modules such as an apache server (httpd)
 
-# EC2 Metadata : 
+# EC2 Metadata :
 
 curl http://169.254.169.254/latest/meta-data/  
 
-curl http://169.254.169.254/latest/user-data/ (this will give you the bootstrap script)  
+curl http://169.254.169.254/latest/user-data/ (this will give you the bootstrap script)
+
+# EC2 autoscaling :
+
+We use this to ensure that a service will not have failure. The purpose is to have different machines in different AZ, the load balancer will then root the traffic to a specific machine.
+
+We can configure how to autoscale. for example if CPU >80 we provision another machine if it's less we delete a machine.
+In case of a failure in an AZ it will still work because the ELB will guide us to the healthy instance.
+
+# What is Placement Group ? :
+
+if they dont say the type it's Clustered !!!
+
+- Two types : Clustered / Spread
+- Clustered :  grouping of instances within a single AZ. Placement groups are recommended for applications that need low network latency, high network throughput, or both. Only certain instances can be launched in to a Clustered Placement Group.
+- Spread : a spread Placement group is a group of instances that are each placed on distinct underlying hardware. Spread placement groups are recommended for applications that have a small number of critical instances that should be kept separate from each other.
+
+- Clustered placement group can't span multiple AZ.
+- A spread placement group can.
+- The name you specifiy for a placement group must be unique within ur AWS account.
+- Only certain types of instances can be launched in a placement group (compute optimized, GPU, Memory Optimized, Storage optimized)
+- AWS recommend homogenous instances wihtin placement groups.
+- you cant merge placement groups.
+- you cant move an existing instance into a placement group. You can create AMI from your existing instance, and then launch a new instance from the AMI into a placement group.     
