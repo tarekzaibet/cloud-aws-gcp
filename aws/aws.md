@@ -323,4 +323,86 @@ if they dont say the type it's Clustered !!!
 - Only certain types of instances can be launched in a placement group (compute optimized, GPU, Memory Optimized, Storage optimized)
 - AWS recommend homogenous instances wihtin placement groups.
 - you cant merge placement groups.
-- you cant move an existing instance into a placement group. You can create AMI from your existing instance, and then launch a new instance from the AMI into a placement group.     
+- you cant move an existing instance into a placement group. You can create AMI from your existing instance, and then launch a new instance from the AMI into a placement group.
+
+# Lambda :
+
+- Lambda scales out (not up) automatically
+- Lambda functions are Independent, 1 event = 1 function.
+- Lambda is serverless
+- There are other SERVERLESS Services in amazon (S3, SNS etc) NEED TO KNOW
+- Lmabda functions can trigger other lambda functions, 1 event can = x functions if functions trigger other functions.
+- Architectures can get extremely complicated, AWS X-ray allows you to debug what is happening.
+- Lambda can do things globally, you can use it to back up S3 buckets to other S3 buckets etc.
+- Know your triggers.
+
+# EC2 - Exam Tips - Summary.
+
+- Know the difference between : on demand, spot, reserved, dedicated host.
+- With SPOT instances : if you terminate thes instance, you pay for the hour. if AWS terminates the sport instance, you get the hour it was terminated in for free.
+- EC2 Instance types : FIGHT DR MC PX
+- Termination protection is turned off by default, you must turn it on.
+- On an EBS-Backed instance, the default action is for the root EBS volume to be deleted when the instance is terminated.
+- EBS-Backed root volumes can now be encrypted using AWS API or console, or you can use a third party pool (such as bit locker etc) to encrypt the root volumes.
+
+-- Snapshots & Volumes :
+
+- Additional volumes can be encrypted.
+- Volumes exist on EBS : virtual hard disk.
+- Snapshots exist on S3
+- you can take a snapshot of a volumes, this will store that volume os S3.
+- Snapshots are point in tome copies of volumes.
+- Snapshots are incremental. This means that only the blocks that have changed since your last snapshot are moved to S3.
+- if this is your first snapshot, it may take some time to create.
+- Snapshots of encrypted volumes are encrypted automatically.
+- Volumes restored from encrypted snapshots are encrypted automatically.
+- You can share snapshots, but only if they are unencrypted : these snapshots can be shared with other AWS accounts or made public.
+- To create a snapshot for amazon EBS volumes that serve as root devices, you should stop the instance before taking the snapshot.
+
+
+-- EVS & Instance Store :  
+
+- Instance store volumes are sometimes called epehemeral storage.
+- Instance store volumes cannot be stopped. If the underlying host fails, you will lose your data.
+- EBS backed instances can be stopped. You will not lose the data of the instance if it is stopped.
+- you can reboot both, you will not lose your data.
+- by default, both root volumes will be deleted on termination. However with EBS volumes, you can tell AWS to keep the root device volume.
+
+- How can I take a snapshot of RAID Array :
+     - Stop the application from writing the disk.
+     - Flush all caches to the disk.
+     - How can we do this ?
+          - Freeze the file system.
+          - Unmount the RAID Array.
+          - shutting down the associated EC2 instance.
+
+-- Amazon Machine Images (AMI)
+
+- AMI are regional. You can only launch an AMI from the region in which it is stoed. However you can copy AMIs to other regions using the console, command line, or the amazon EC2 API.
+
+-- Monitoring :
+
+- standard monitoring = 5 minutes.
+- detailed monitoring = 1 minute.
+- CloudWatch is for performance monitoring.
+- CloudTrail is for auditing.
+
+- Dashboards - CloudWatch creates awesome dashboards to see what is happening with your AWS environment.
+- Alarms - Allows you to set alarms that notify you when particular thresholds are hit.
+- Events - CloudWatch Events helps you to respond to state changes in your AWS ressources.
+- Logs - CloudWatch logs help you to aggregate, monitor, and store logs.
+
+-- Roles :
+- Roles are more secure than storing your access key and secret access key on individual EC2 instances.
+- Roles are easier to manage.
+- Roles can be assigned to an EC2 instance AFTER it has been provisionned using both the CL and the AWS console.
+- Roles are universal - you can use them in any region
+
+- EBS Consists of :
+  - SSD, General Purpose - GP2 - (up to 10000 IOPS)
+  - SSD, Provisioned IOPS - IO1 - (More than 10000 IOPS)
+  - HDD, Throughout Optimized - ST1 - frequently accessed workloads.
+  - HDD, Cold - SC1 - less frequently accessed data.
+  - HDD, Magnetic - Standard - cheap, infrequently accessed storage
+
+  - You cannot mount 1 EBS volume to multiple EC2 instances; instead use EFS.
