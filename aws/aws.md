@@ -480,3 +480,9 @@ WHY 53 -> beacuse the DNS is on port 53
 - if you want to route traffic approximately randomly to multiple resources, such as web servers, you can create one multivalue answer record for each resource and, optionally, associate an Amazon Route 53 health check with each record. For example, suppose you manage an HTTP web service with a dozen web servers that each have their own IP address. No one web server could handle all of the traffic, but if you create a dozen multivalue answer records, Amazon Route 53 responds to DNS queries with up to eight healthy records in response to each DNS query. Amazon Route 53 gives differents answers to differents DNS resolvers. If a web server becomes unavailable after a resolver caches a response, client sofwtare can try another IP address in the response.  
 
 !! there is a limit to the number of domain names that you can manages using route 53. its true and false, there is a limit of 50 domain names however this limit can be raised by contacting AWS support. !!
+
+## Datbases on AWS
+
+# RDS
+
+- to connect rds instance to ec2, you need to ( in the security group of rds ) open MySQL on port 3306 to security group of your EC2 instance. 
