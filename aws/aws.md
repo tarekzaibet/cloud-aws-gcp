@@ -406,3 +406,77 @@ if they dont say the type it's Clustered !!!
   - HDD, Magnetic - Standard - cheap, infrequently accessed storage
 
   - You cannot mount 1 EBS volume to multiple EC2 instances; instead use EFS.
+
+
+## Route 53
+
+WHY 53 -> beacuse the DNS is on port 53
+
+- DNS 101 :
+
+  - DNS is sued to convert human friendly domain name into an IP address. Works like a phone book.
+  - 2 types : IPv4 (32 bit field) / IPv6 (46 bit field)
+  - Top Level Domaines:
+     - the last work in the domain name represents the "the top level domain"
+     .com : top level domain name
+     .co.uk : second level domain name (uk is top level)
+     - controlled by the Internet assigned numbers authority (IANA). it's a database of all available domain names.
+     - Domain Registras : make sure that a domain name is unique.  
+  - Start of authority Record (SOA) :
+      stores :
+       - the name of the server that supplied the data for the zone.
+       - the Administrator of the zone.
+       - the current version of the data file.
+       - the default number of seconds for the TTL on ressource records.
+
+  - NS Records : NS stands for Name server records. they are used by Top Level Domain servers to direct traffic to the content DNS server which contains the authoritative DNS records.
+  - A Records : Fundemental type of DNS. The A record is used by a computer to translate the name of the domain to an IP address.
+  - TTL : the length a DNS record is cached on either the resolving server or the user own pc.
+  CNAMES : used to resolve a domain name to another.
+  ALIAS Records : used to map to ressource record sets in your hosted zone to Elastic load balancers. DIFFERENCE CNAME CANT BE USED FOR NAKE DOMAIN NAMES.
+
+  - ELBs do not have pre-defined IPv4 addresses; you resolve to them using a DNS name.
+  - Given the choice always choose an A record over a CNAME.  
+  - Alias Records : SAVE TIME. Amazon route 53 automatically recognizes changes in the record sets that the alias ressource record set refers to.
+  - Commond DNS types : SOA, NS, A, CNAMES, MX Records.
+
+# Register a domain name  :
+
+- Route 53 is global.  
+- Routing policies available on AWS :
+  - simple Routing
+  - weighted routing
+  - latency-based routing
+  - failover routing
+  - geolocation routing
+  - multivalue answer routing.
+
+# Simple Routing Policy :
+
+- you can only have one record with multiple IP addresses.
+- if you specify multiple values in a record, Route 53 returns all values to the user in a random order.
+
+# Weighted Routing Policy :
+
+- weighted routing policies let you split your traffic based on different weights assigned. For example you can set 10% of your traffic to go to US-EAST-1 and 90% to go to EU-WEST-1.
+
+# Latency Routing Policy :
+
+- latency based routing allows you to route your traffic based on the lowest network for your end user. To use latency-based routing, you create a latency resource record set for the Amazon EC2 (or ELB) resource in each region that hosts your website. When Amazon Route 53 receives a query for your site, it selects the latency resource record set for the region that gives the user the lowest latency. Route 53 then responds with the value associated with that resource record set. Gives back the region that gives the fastest response time.
+
+
+# Failover Routing Policy :
+
+- Failover routing policiers are used when you want to create an active/passive set up. You may want your primary site to be in EU-WEST-2 and your secondary DR Site in AP-SOUTHEAST-2
+
+- Route 53 will monitor the health of your primary site using a health check.
+
+# Geolocation Routing Policy :
+
+- lets you choose where your traffic will be sent based on the geographic location of your users.
+
+# Multivalue Routing Policy :
+
+- if you want to route traffic approximately randomly to multiple resources, such as web servers, you can create one multivalue answer record for each resource and, optionally, associate an Amazon Route 53 health check with each record. For example, suppose you manage an HTTP web service with a dozen web servers that each have their own IP address. No one web server could handle all of the traffic, but if you create a dozen multivalue answer records, Amazon Route 53 responds to DNS queries with up to eight healthy records in response to each DNS query. Amazon Route 53 gives differents answers to differents DNS resolvers. If a web server becomes unavailable after a resolver caches a response, client sofwtare can try another IP address in the response.  
+
+!! there is a limit to the number of domain names that you can manages using route 53. its true and false, there is a limit of 50 domain names however this limit can be raised by contacting AWS support. !!
