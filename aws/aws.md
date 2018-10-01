@@ -408,7 +408,7 @@ if they dont say the type it's Clustered !!!
   - You cannot mount 1 EBS volume to multiple EC2 instances; instead use EFS.
 
 
-## Route 53
+# Route 53
 
 WHY 53 -> beacuse the DNS is on port 53
 
@@ -440,7 +440,7 @@ WHY 53 -> beacuse the DNS is on port 53
   - Alias Records : SAVE TIME. Amazon route 53 automatically recognizes changes in the record sets that the alias ressource record set refers to.
   - Commond DNS types : SOA, NS, A, CNAMES, MX Records.
 
-# Register a domain name  :
+## Register a domain name  :
 
 - Route 53 is global.  
 - Routing policies available on AWS :
@@ -451,38 +451,38 @@ WHY 53 -> beacuse the DNS is on port 53
   - geolocation routing
   - multivalue answer routing.
 
-# Simple Routing Policy :
+## Simple Routing Policy :
 
 - you can only have one record with multiple IP addresses.
 - if you specify multiple values in a record, Route 53 returns all values to the user in a random order.
 
-# Weighted Routing Policy :
+## Weighted Routing Policy :
 
 - weighted routing policies let you split your traffic based on different weights assigned. For example you can set 10% of your traffic to go to US-EAST-1 and 90% to go to EU-WEST-1.
 
-# Latency Routing Policy :
+## Latency Routing Policy :
 
 - latency based routing allows you to route your traffic based on the lowest network for your end user. To use latency-based routing, you create a latency resource record set for the Amazon EC2 (or ELB) resource in each region that hosts your website. When Amazon Route 53 receives a query for your site, it selects the latency resource record set for the region that gives the user the lowest latency. Route 53 then responds with the value associated with that resource record set. Gives back the region that gives the fastest response time.
 
 
-# Failover Routing Policy :
+## Failover Routing Policy :
 
 - Failover routing policiers are used when you want to create an active/passive set up. You may want your primary site to be in EU-WEST-2 and your secondary DR Site in AP-SOUTHEAST-2
 
 - Route 53 will monitor the health of your primary site using a health check.
 
-# Geolocation Routing Policy :
+## Geolocation Routing Policy :
 
 - lets you choose where your traffic will be sent based on the geographic location of your users.
 
-# Multivalue Routing Policy :
+## Multivalue Routing Policy :
 
 - if you want to route traffic approximately randomly to multiple resources, such as web servers, you can create one multivalue answer record for each resource and, optionally, associate an Amazon Route 53 health check with each record. For example, suppose you manage an HTTP web service with a dozen web servers that each have their own IP address. No one web server could handle all of the traffic, but if you create a dozen multivalue answer records, Amazon Route 53 responds to DNS queries with up to eight healthy records in response to each DNS query. Amazon Route 53 gives differents answers to differents DNS resolvers. If a web server becomes unavailable after a resolver caches a response, client sofwtare can try another IP address in the response.  
 
 !! there is a limit to the number of domain names that you can manages using route 53. its true and false, there is a limit of 50 domain names however this limit can be raised by contacting AWS support. !!
 
-## Datbases on AWS
+# Datbases on AWS
 
-# RDS
+## RDS
 
-- to connect rds instance to ec2, you need to ( in the security group of rds ) open MySQL on port 3306 to security group of your EC2 instance. 
+- to connect rds instance to ec2, you need to ( in the security group of rds ) open MySQL on port 3306 to security group of your EC2 instance.
