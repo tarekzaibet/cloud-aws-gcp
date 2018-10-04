@@ -574,4 +574,115 @@ Not all IP Traffic is monitored :
 - Traffic to the reserved IP address for the default VPC router.
 
 
-=> Look to VPC endpoints + VPC FAQ and try create a VPC with no help. 
+=> Look to VPC endpoints + VPC FAQ and try create a VPC with no help.
+
+# Application Services
+
+## SQS
+- Simple Queue Service (distributed queueing system)
+- Oldest AWS Service (first one)
+- Using Amazon SQS, you can decouple the components of an application so they run independently, easing message management between components. Any component of a distributed application can store messages in the queue. Messages can contain up to 256 KB of text in any format. Any component can later retrieve the messages programmatically using the Amazon SQS API.
+- The queue acts as a buffer between the component producing and saving data, and the component receiving the data for processing.
+
+- SQS Visibility Timeout : the amount of time that the message is invisible in the SQS queue after a reader picks up the message. provided the job is processed before the visibility time out expires, the message will then be deleted from the Q. if the job is not processed within that time, the message will become visible again and another reader will process it. This could result in the same message being delivered twice.
+- Default Visibility Timeout is 30 seconds.
+- Increase it if your task takes > 30 seconds.
+- Maximum is 12 hours.
+
+- Queue Types :
+    - Standard Queues (default)
+    - FIFO Queues (no duplicate, in order)
+
+- Key Facts :
+  - SQL is pull-based, not pushed-based.
+  - Messages are 256 KB in size.
+  - Messages can be kept in the queue from 1 minute to 14 days.
+  - Default retention period is 4 days.
+  - SQS guarantees that you messages with be processed at least once.  
+
+
+- SQS Long Polling
+  - short polling -> returns immediately (even if the message Q being polled is empty)
+  - long polling -> no return until a message arrives in the Q.
+  - long polling SAVES MONEY
+
+## SWF
+Simple Workflow Service.
+
+- SWF Workers : programs that interact with Amazon SWF to get tasks, process received tasks, and return the results.
+- SWF Decider : controls the coordination of tasks, their ordering, concurrency, and scheduling according to the application logic.
+- SWF Domains : workflow, activity types and the workflow execution itself are all scoped to a domain. Domains isolate a set of types, executions and task lists from others within the same account. You can register a domain by using the AWS management console or by using the RegisterDomain action in the Amazon SWF API. Parameters are in JSON
+
+workers and deciders can run on cloud infra, such as EC2 or machines behind firewalls. SWF brokers the interactions between workers and the decider. it allows the decider to get consistent views into the progress of tasks and to initiate new tasks in an ongoing manner.
+
+at the same time, SWF stores tasks, assigns them to workers when they are ready, and monitor their progress. it ensures that a task is assigned only once and is never duplicated. Since amazon SWF maintains the application's state durably, workers and deciders don't have to keep track of execution state. they can run independently, and scale quickly.
+
+Maximum workflow can be 1 year and the values is always measured in seconds.
+
+## SWF vs SQS :
+-  SWF is task oriented API. SQS is messaged oriented API.
+- SWF ensures that a task is assigned only once and is never duplicated. With SQS you need to handle duplicated messages and may also need to ensure that a message is processed only once.
+- SWF keep track of all the tasks and events in an application. With SQS you need to implement your own application level tracking, especially if your application uses multiple Q's.
+
+## SNS :
+
+- a web service that set up, operate and send notifications from the cloud (SMS, email, SQL, and other http endpoint, trigger lambda).  
+- a topic, is an access point, can deliver to multiple endpoint types.
+- to prevent msg from being lost. all msgs published to SNS are stored redundantly across multiple AZ
+- SNS Benefits :
+  - Instantaneous, push-based delivery (no polling)
+  - Simple and easy to integrate with applications.
+  - Flexible message delivery over multiple transport protocols.
+  - Inexpensive, pay as you go with no up-front costs.
+  - Web-based AWS Management Console offers the simplicity of a point-and-click interface.
+
+- SNS vs SQS :
+  - Both messaging services in AWS
+  - SNS - Push
+  - SQS - Polls (Pulls)
+
+- Pricing :
+  - 0.5 $ / 1 Million SNS requests.
+  - 0,06 $ / 100,000 notification deliveries over HTTPS.
+  - 0,75 $ / 100 notification deliveries over SMS.
+  - 2 $ / 100,000 notification deliveries over Email
+
+## Elastic Transcoder
+
+Media transcoder in the cloud.
+- Convert media from original format to another.
+- Pay based on the minutes you transcode.
+
+## API Gateway
+
+- it's a fully managed service that makes it easy for developers to publish, maintain, monitor and secure APIs at any scale. With a few clicks in the AWS Management Console, you can create an API that acts as a "front door" for applications to access data, business logic, or functionality from your back-end services, such as applications running on EC2, on lambda or any web application.
+
+- API Caching : (has caching capa) reduce the number of call made to your endpoints, caches responses from your endpoint while the TTL.
+
+- Low cost & efficient
+- Scales Effortlessly
+- You can throttle requests to prevent attacks.
+- Connect cloudwatch to it.
+
+- Use CORS to relax same-origin policy
+
+## Kinesis 101
+
+- streaming data : data from thousands of data sources.
+- kinesis is a platform on AWS to send your streaming data too. kinesis makes it easy to load and analyze streaming data.
+
+- core kinesis services :
+   - Streams :
+      - consist of shards
+      - shard : 5 transactions per second for read, up to a maximum total data read rate of 2 MB per second and up to 1000 records per second for writes, up to a maximum total data write rate of 1 Mb per second.
+      - the data capacity of your stream is a function of the number of shards that you specify for the stream. The total capacity of the stream is the sum of the capacities of its shards.
+      - 24H / 7 DAYS data retention
+
+   - Firehose :
+      - automated shards etc configuration, you don't have to set all up by yourself.
+      - no retention
+
+   - Analytics :
+     - run SQL queries on the data existing on stream or firehose.
+
+EXAM Tips : SQS is important FAQ, go tu summary vid
