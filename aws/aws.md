@@ -481,8 +481,52 @@ WHY 53 -> beacuse the DNS is on port 53
 
 !! there is a limit to the number of domain names that you can manages using route 53. its true and false, there is a limit of 50 domain names however this limit can be raised by contacting AWS support. !!
 
-# Datbases on AWS
+# Databases on AWS
 
 ## RDS
 
 - to connect rds instance to ec2, you need to ( in the security group of rds ) open MySQL on port 3306 to security group of your EC2 instance.
+
+## AWS Database type
+ - RDS - OLTP : sql, mysql, postgresSQL, Oracle, MariaDB, Aurora
+ - DynamoDB - No Sql
+ - Redshift - OLAP
+ - Elasticache : in memory caching : Memecached - Redis
+
+## Aurora Scaling :
+- 2 copies of your data is contained is each AZ, with minimum of 3 AZ. 6 copies of your data.
+- Aurora is designed to transparently handle the loss of up to two copies of data without affecting database write availability and up to three copies without affecting read availability.
+- Aurora storage is also self-healing. Data blocks and disks are continusously scanned for errors and repaired automatically.
+
+## Aurora Replicase
+- 2 types of replicas are available.
+- Aurora Replicas (currently 15)
+- MySQL Read Replicas (currently 15)
+
+## DynamoDB vs RDS
+- DynamoDB offers "push buttons" scaling, meaning that you can scale your database on the fly, without any down time.
+- RDS is not so easy and you usually have to use a bigger instance size or to add a read replica.
+
+## Dynamo DB
+- Stored on SSD Storage.
+- Spread across 3 geographically distinct data centers.
+- Eventual consistent reads (default)
+- Strongly consistent reads
+
+## Redshfit configuration
+- Single Node (160Gb)
+- Multi-Node
+    - Leader Node (manages client connections and receives queries)
+    - Compute Node (store data and perform queries and computations) Up to 128 computes nodes.
+
+## Elasticache :
+- supports : memecached, Redis
+- web service that makes it easy to deploy, operate and scale an in-memory cache in the cloud.
+
+
+# VPC
+- think of a VPC as a logical datacenter in AWS.
+- Consists of IGWs (ot Virtual Private Gateways), Route Tables, Network Access Control Lists, Subnets, and Security Groups.
+- 1 Subnet = 1 AZ
+- Security Groups are stateful (inbound <=> outbound). Network access control lists are stateless.
+- no transitive peering.
