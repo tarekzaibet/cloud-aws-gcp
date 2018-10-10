@@ -686,3 +686,158 @@ Media transcoder in the cloud.
      - run SQL queries on the data existing on stream or firehose.
 
 EXAM Tips : SQS is important FAQ, go tu summary vid
+
+# Architecting for the cloud Best practices whitepaper
+
+## Business Benefits of Cloud
+- Almost zero upront infrastructure investment
+- Just-in-time infrastructure
+- more efficient resource utilization
+- Usage-based costing
+- Reduced time to market
+
+## Technical Benefits of Cloud
+- Automation - "Scriptable infrastructure"
+- Auto-scaling
+- Proactive Scaling
+- More efficient Dev lifecyle
+- Improved testability
+- Disaster Recovery and Business continuity
+- "Overflow" the traffic to the cloud.
+
+-> cloud gives "elasticity" spend money just for what you need  
+
+## Design for failure
+
+- Rule : be a pessimist when designing architectures in the cloud; assume things will fail. In other words, always design, implement and deploy for automated recovery from failure.
+
+In particular, assume that your hardware will fail. Assume that outages will occur. Assume that some disaster will strike your application. Assume that you will be slammed with more than the expected number of requests per second some day. Assume that with time your application software will fail too. By being a pessimist, you end up thinking about recovery strategies during design time, which helps in designing an overall system better.
+
+Netflix have "chaos monkey", to tests failure.
+
+## Decouple your components
+
+when is about decoupling think about SQS.
+- the key is to build components that do not have tight dependencies on each other, so that if one component where to die(fail), sleep(not respond) or remain busy (slow to respond) for some rason, the other components in the system are built so as to continue to work as if no failure is happening.
+
+In essence, loose coupling isolates the various layers and components of your application so that each component interacts asynchronously with the others and treats them as a "black box".
+
+## Implement Elasticity
+
+it can be implemented in three ways :
+
+- Proactive Cyclic Scaling : Periodic scaling that occurs at fixed interval (daily, weekly, monthly, quarterly)
+
+- Proactive Event-based Scaling : Scaling just when you are expecting a big surge of traffic requests due to a scheduled business event (new product launch, marketing campaigns)
+
+- Auto-scaling based on demand. By using a monitoring service, your system can send triggers to take appropriate actions so that it scales up or down based on metrics (utilization of the servers or network i/o, for instance)
+
+## Secure your application
+
+- web server : allow (port 80 HTTP & 443 HTTP to internet )
+- app server : Only port 22 (SSH) of App Layer developers in the corporate office network
+- DB Server : external internet traffic denied
+
+# Intro to the Well Architected Framework
+
+released in Reinvent in 2015
+https://aws.amazon.com/architecture/well-architected/
+
+- it is a set of questions that you can use to evaluate how well your architecture is aligned to AWS best practices.
+
+- 5 Pillars :
+    - Security
+    - Reliability
+    - Performance Efficiency
+    - Cost Optimisation
+    - Operational Excellence.
+
+- each pillar has :
+  - Design Principles
+  - Definition
+  - Best practices
+  - Key AWS services
+  - Resources
+
+## General Design Principles
+
+- stop guessing your capacity needs.
+- test systems at production scale
+- automate to make architectural experimentation easier
+- allows for evolutionary architecture
+- Data-Driven architectures
+- Improve through game days. (test loads for example on black friday)
+
+## PILAR 1 : Security
+
+- Design Principles :
+    - Apply security at all layers.
+    - Enable traceability.
+    - Automate responses to security events.
+    - Focus on securing your system.
+    - Automate security best practices.
+    - AWS Shared responsibility model : (A LOT IN THE EXAM)
+      - Customer : responsible of security "in" the cloud
+      - AWS : responsible of security "of" the cloud
+
+- Definition (NEED TO KNOW FOR EXAM EACH DEFINITION)
+  - Security int the cloud consists of 4 areas :
+    - Data protection
+    - Privilege management
+    - infrastructure protection
+    - Detective controls
+
+- Best Practice :
+
+    - Data protection :
+
+    basic data classification should be in place. You should organise and classify your data in to segments such as publicly available, available to only members or certain members of your organisation. You should also implement at least privilege access system so that people are only able to access what they need. However most importantly, you should encrypt everything where possible whether it be at rest or in transit.
+
+      - AWS customers maintain full control over their data
+      - AWS makes it easier for you to encrypt your data and manage keys, including regular key rotation, which can be easily automated nativly by AWS or maintained by a customer.
+      - Detailed logging is available that contains important content, such as file access and changes.
+      - AWS has designed storage systems for exceptional resiliency. As an example, Amazon Simple Storage Service (S3) is designed for 11 nines of durability.
+      - Versioning, can protect against accidental overwrites, deletes and similar harm.
+      - AWS never initiates the movement of data between regions.
+
+      Questions to ask :
+      - How are you encrypting and protecting your data at rest ?
+      - How are you encrypting and protecting your data in transit? (ssl)
+
+    - Privilege Management :
+
+    ensures that only authorized and authenticated users are able to access your resources, and only in a manner that is intended.
+
+      Questions to ask :
+      - How are you protecting access to and use of the AWS root account credentials?
+      - How are you defining roles and responsibilities of system users to control human access to the AWS Management Console and APIs.
+      - How are you limiting automated access (such as from application, scripts or third-party tools or services) to AWS resources?
+      - How are you managing keys and credentials?
+
+    - Infrastructure Protection :
+
+    outside of the cloud, this is how you protect your data centre. within AWS they handle this, so really infrastructure protection exists at a VPC level.
+
+    Questions to ask :
+    - How are you enforcing network and host-level boundary protection?
+    - How are you enforcing AWS service level protection ?
+    - How are you protecting the integrity of the operating systems on your amazon EC2 instances.
+
+
+    - Detective Controls :
+
+    used to detect or identify a security breach. using aws services such as : cloudwatch, cloud trail, aws config, S3, glacier.
+
+    Questions to ask :
+    - How are you capturing and analyzing AWS logs?  
+
+    KEY AWS Services for this PILLAR :
+    - Data protection : you can encrypt in both rest and transit using: ELB,EBS,S3 & RDS.
+    - Privilege management : IAM, MFA
+    - Infrastructure protection : VPC
+    - Detective controls : AWS cloud trail, AWS Config, Amazon cloud watch
+
+
+    EXAM TIPS :
+     - remember the 4 areas and the type of questions for each area.
+     - read the whitepaper
