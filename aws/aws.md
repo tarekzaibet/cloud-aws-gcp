@@ -841,3 +841,102 @@ https://aws.amazon.com/architecture/well-architected/
     EXAM TIPS :
      - remember the 4 areas and the type of questions for each area.
      - read the whitepaper
+
+## PILAR 2 : Reliability
+
+   - Design Principles :
+      - test recovery procedures
+      - automatically recover from failure
+      - scale horizontally to increase aggregate system availability
+      - stop guessing capacity
+
+   - Definition :
+      Reliability in the cloud consists of 3 areas :
+        - Foundations
+        - Change management
+        - Failure management
+
+   - Best practices & questions to ask :
+        - Foundations : with AWS, they handle most of the foundations for you
+                    - questions :
+                        - how are you managing AWS service limits for your account ?
+                        - how are you planning your network topology on AWS ?
+                        - Do you have an escalation path to deal with technical issues?
+
+        - Change management : you need to be aware of how change affects a system so that you can plan proactively around it. Monitoring allows you to detect any changes to your env and react. With AWS you can use cloudwatch for that.
+                    - questions :
+                        - How does your system adapt to changes in demand ?
+                        - How are you monitoring AWS resources ?
+                        - How are you executing change management ?
+
+        - Failure Management : always architect your systems with the assumptions that failure will occur.  
+                     - questions :
+                        - How you backing up your data ?
+                        - How does your system withstand component failures ?
+                        - How are you planning for recovery ?
+
+    - Key AWS Services :
+      Foundations : IAM, VPC
+      Change Management : CloudTrail
+      Failure Management : CloudFormation
+
+    - Exam Tips :
+      - Remember this pilar areas
+      - Remember questions to ask
+
+## PILAR 3 : Performance Efficiency :
+
+This pillar focuses on how to use computing resources efficiently to meet your requirements and how to maintain that efficiency as demand changes and technology evolves.
+
+    - Design Principles :
+      - Democratize advanced technologies
+      - Go global in minutes
+      - Use server-less architectures.
+      - Experiment more often
+
+    - Definition :
+    Performance efficiency consists of 4 areas :
+      - Compute
+      - Storage
+      - Database
+      - Space-time trade off
+
+     - Best practices & questions to ask :
+
+      - Compute :
+      you have to choose the right kind of server. with aws you can easily change the type of server in which your env is running.
+          - questions to ask :
+            - how do you select the appropriate instance type for your system ?
+            - how do you ensure that you continue to have the most appropriate instance types and features are introduced?
+            - how do you monitor your instances post launch to ensure they are performing as expected?
+            - how do you ensure that the quantity of your instances matches demand
+
+        - Storage :
+        the optimal storage solutions for your env depends on a number of factors. at aws storage is virtualized.
+          - questions to ask :
+            - how do you select the appropriate storage solution for your system ?
+            - how do you ensure that you continue to have the most appropriate storage solution as new storage solutions and features are launched ?
+            - how do you monitor your storage solution to ensure it is performing as expected ?   
+            - how do you ensure that the capacity and throughput of your storage solutions matches demand ?
+
+        - Database :
+        the optimal database depends on a number of factors
+          - questions to ask :
+            - how do you select the appropriate database solutions for your system ?
+            - how do you ensure that you continue to have the most appropriate database solutions and features as new database solutions and features are launched ?
+            - how do you monitor your databases to ensure performance is as expected ?
+            - how do you ensure that the capacity and throughput of your databases matches demand ?
+
+          - Space-time trade off :
+            - questions to ask :
+             - how do you select the appropriate proximity and caching solutions for your system ?
+             - how do you monitor that you continue to have the most appropriate proximity and caching solutions as new solutions are launched ?
+             - how do you monitor your proximity and caching solutions to ensure performance is as expected ?
+             - how do you ensure that the proximity and caching solutions you have matches demand ?
+
+
+        - Key AWS Services :
+              Compute : Autoscaling
+              Storage : EBS, S3, Glacier
+              Database : RDS, DynamoDB, Redshift
+              Space-time trade-off : CloudFront, ElastiCache, Direct Connect, RDS Read Replicas etc.
