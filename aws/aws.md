@@ -940,3 +940,94 @@ This pillar focuses on how to use computing resources efficiently to meet your r
               Storage : EBS, S3, Glacier
               Database : RDS, DynamoDB, Redshift
               Space-time trade-off : CloudFront, ElastiCache, Direct Connect, RDS Read Replicas etc.
+
+## PILAR 4 : Cost Optimization :
+
+Use this pillar to reduce your costs to a minimum and use those savings for others parts of your business. A cost-optimized system allows you to pay the lowest price possible while still achieving your business objectives.
+
+        - Design principles :
+              Transparently attribute expenditure (know what you spend)
+              Use managed services to reduce cost of ownership (remove operational ).
+              Trade capital expense for operating expense.(stop ressources when they are not in use)
+              Benefit from economies of scale.
+              Stop spending money on data center operations.
+
+        - Definition :
+              Cost optimization in the cloud consists of 4 areas :
+                - Matched supply and demand
+                - Cost-effective resources
+                - Expenditure awareness
+                - Optimizing over time
+
+        - Best practices & questions to ask :
+
+                - Matched supply and demand  :
+                Don't over provision or under provision, instead as demand grows, so should your supply of compute ressources. for example use lambda that only executes when request comes in. CloudWatch can help you keep track as to what your demand is.
+                  - questions to ask :
+                    - How do you make sure your capacity matches but does not substantially exceed what you need ?
+                    - How are you optimizing your usage of AWS Services ?
+
+                - Cost-effective resources :
+                Use the correct instance type to cost save.
+                  - questions to ask :
+                    - Have you selected the appropriate resource types to meet your cost targets
+                    - Have you selected the appropriate pricing model to meet your cost targets ?
+                    - Are there managed services (higher-level services that Amazon EC2, EBS, S3) that you can use to improve ROI.
+
+                  - Expenditure awareness :
+                  with cloud you no longer have to go out and get quotes on physical devices etc you can provision things within seconds but that raises its own issue, there are many teams in an organisation and you have to be aware about what each is team is spending.
+                    - questions to ask :
+                      - what access controls and procedures do you have in place to govern AWS costs?
+                      - how are you monitoring usage and spending ?
+                      - how do you decommission resources that you no longer need, or stop resources that are temporarily not needed ?
+                      - how do you consider data-transfer charges when designing your architecture.
+
+                  - Optimizing over time :
+                  since AWS moves fast, change your infra to optimize if there is an new service that increases your ROI.
+                  - questions to ask :
+                    - how do you manage and/or consider the adoption of new services ?  
+
+          - Key AWS Services :
+              - matched supply and demand : Autoscaling
+              - cost-effective resources : EC2 (reserved), AWS Trusted Advisor
+              - expenditure awareness : CloudWatch Alarms, SNS
+              - Optimizing over time : AWS Blog, AWS Trusted Advisor
+
+## PILAR 5 : Operational Excellence
+
+includes operational practices and procedures used to manage production workloads. This includes how planned changes are executed, as well as responses to unexpected operational events. Change execution and responses should be automated. All processes and procedures of operational excellence should be documented, tested, and regularly reviewed.
+
+      - Design principles :
+        perform operations with code
+        align operations processes to business objectives
+        make regular, small, incremental changes
+        test for responses to unexpected events
+        learn from operational events and failures
+        keep operations procedures current
+
+      - Definition :
+              Operational excellence in the cloud consists of 3 areas :
+                - Preparation
+                - Operation
+                - Response
+
+      - Best practices & questions to ask :
+
+          - Preparation :
+          effective preparation is required to drive operationel excellence. Operations checklists will ensure that workloads are reaady for production operation, and prevent unintentional production promotion without effective preparation.
+          workloads should have : Runbooks, playbooks
+            - questions to ask :
+               - what best practices for cloud operations are you using ?
+               - how are you doing configuration management for your workload ?
+
+          - Operations :
+          operations should be standardized and manageable on aroutine basis.The focus should be on automation and small frequent changes.Regular quality assurance testing and defined mechanisms to track audit roll back and review changes.Changes should not be large and infrequent.They should not require downtime and they should not require manual execution.A wide range of logs and metrics that are based on key operational indicators for a workload should be collected and reviewed to ensure continuous operations.
+             - questions to ask :
+              - how are you evolving your workload while minimizing the impact of change ?
+              - how do you monitor your workload to ensure it is operating as expected  ?
+
+          - Responses :
+          Responses to unexpected operational events should be automated. This is not just for alerting, but also for mitigation, remediation, rollback and recovery.
+          - questions to ask :
+           - how do you respond to unplanned operational events ?
+           - how is escalation managed when responding to unplanned operational events ?  
