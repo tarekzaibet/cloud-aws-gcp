@@ -41,6 +41,13 @@ propogate)
 - not suitable to store OS
 - by default buckets are private and all objects stored inside them are private
 - control access to bucket using ACL or using bucket policies
+- When you create a bucket : encryption is not enabled and no bucket policy exists, Transfer acceleration and versinoning are also disabled.
+- S3 bucket properties : versioning, server access logging, object level logging, static website hosting, tags, transfer acceleration, events.
+- You can access to files in s3 from your data center using a File Gateway. those files can be accessed via NFS and SMB.
+- Request rate and performance : S3 can manage up to 3500 PUT/POST/DELETE per second and 5500 GET per second.
+- You can upload files up to 5 GB in size. Use multi-part upload for larger file uploads.
+- You can track object-level action by cloudTrail logging.
+- System meta data for objects in S3 : x-amz-server-side-encryption , x-amz-version-id , Content-Length
 
 ## Versioning:
 - stores all versions of an object (including all wirtes and even if you delete an object)
@@ -665,6 +672,11 @@ Media transcoder in the cloud.
 - Connect cloudwatch to it.
 
 - Use CORS to relax same-origin policy
+- Valid Integration sources : HTTP-based public facing endpoint outside AWS, Lambda functions from another account, VPC Link.
+- You can use API Gateway to front API hosted backedns that exist privately in your own data center using AWS Direct Connect links to your VPC.
+- Use throttling and API caching to improve API performance
+- Access control mechanims for AWS API Gateway: Resource policies, Lambda authorizers, Usage Plans.
+- Refresh cache is not a cache setting.
 
 ## Kinesis 101
 
