@@ -265,7 +265,18 @@ Solution : Take an application consistent snapshot.
 - Instances monitored by ELB are reported as : inService or OutOfService
 - Health Checks check the instance health by talking to it
 - Have their own DNS name. You are never given an IP address.
+- You need at least two subnets to create a load balancers
 - Read the ELB FAQ for classic load balancers
+- For monitor Application Load Balancer use :  CloudWatch metrics, VPC Flow Logs, CloudTrail logs. 
+
+# Auto Scaling Group VS Target Group
+
+- Auto Scaling Group is just a group of identical instances that AWS can scale up(add a new one) or down(remove) automatically based on some configurations you've specified. You use this to ensure at any point in time, there is the specific number of instances running your application, and when a threshold is reached(like CPU utilization), it scales up or down.
+
+- Auto Scaling group launches new instances based on the configuration defined in Launch Configuration. AMI ID is one of the configuration parameter which defines the type of instance to be launched when auto scaling logic is executed. AMI ID is set during the creation of launch configuration and cannot be modified. Auto scaling group will not launch new instance based on the latest image of main instance.
+
+- Target Group is a way of getting network traffic routed via specified protocols and ports to specified instances. It's basically load balancing on a port level. This is used mostly to allow accessing many applications running on different ports but the same instance.
+
 
 # Cloudwatch EC2 :
 
@@ -555,6 +566,8 @@ WHY 53 -> beacuse the DNS is on port 53
 - Remember to update your route tables.
 - No need to disable Source/ Destination Checks.
 - More secure than a NAT instance.
+- You can't share nat gateways accross VPC's
+- NAT Gateways don't have security groups
 
 ## Network ACLs
 - Your VPC automatically comes a default network ACL, and by default it allows all outbound and inbound traffic.
