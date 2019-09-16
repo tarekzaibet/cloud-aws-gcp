@@ -554,7 +554,7 @@ WHY 53 -> beacuse the DNS is on port 53
       - Maximum retention period is 35 days
       - Always attempts to maintain at least three copies of your data (the original and replica on the compute nodes and
         backup in Amazon S3)
-        
+
 ## Elasticache :
 - supports : memecached, Redis
 - web service that makes it easy to deploy, operate and scale an in-memory cache in the cloud.
@@ -715,18 +715,27 @@ Media transcoder in the cloud.
 - kinesis is a platform on AWS to send your streaming data too. kinesis makes it easy to load and analyze streaming data.
 
 - core kinesis services :
+
    - Streams :
-      - consist of shards
-      - shard : 5 transactions per second for read, up to a maximum total data read rate of 2 MB per second and up to 1000 records per second for writes, up to a maximum total data write rate of 1 Mb per second.
+
+      - Consist of shards : base throughput unit of an Amazon Kinesis data stream.  
+      - One shard can support up to 1000 PUT records per second
+      - Shard : 5 transactions per second for read, up to a maximum total data read rate of 2 MB per second and up to 1000 records per second for writes, up to a maximum total data write rate of 1 Mb per second.
       - the data capacity of your stream is a function of the number of shards that you specify for the stream. The total capacity of the stream is the sum of the capacities of its shards.
       - 24H / 7 DAYS data retention
+      - replicates data accross 3 AZ, providing high availability and data durability 
+      - Records : unit of data stored in Amazon Kinesis data stream.
+      - Partition Key : used to seggragate and route records to different shards of a data stream.
 
    - Firehose :
-      - automated shards etc configuration, you don't have to set all up by yourself.
-      - no retention
+      - Firehose =  Streams but with Automated shards etc configuration, you don't have to set all up by yourself.
+      - No retention
+      - Delivery stream : underlaying entity of Amazon Kinesis Data Firehose. You use Firehose by creating a delivery stream and then sending data to it.
+      - Record : A record is the data of interest your data producer sends to a delivery stream. The maximum size of a record (before Base64-encoding) is 1000 KB.
+      - Destination : A destination is the data store where your data will be delivered. Amazon Kinesis Data Firehose currently supports Amazon S3, Amazon Redshift, Amazon Elasticsearch Service, and Splunk as destinations.
 
    - Analytics :
-     - run SQL queries on the data existing on stream or firehose.
+     - Run SQL queries on the data existing on stream or firehose.
 
 EXAM Tips : SQS is important FAQ, go tu summary vid
 
