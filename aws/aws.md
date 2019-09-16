@@ -267,7 +267,7 @@ Solution : Take an application consistent snapshot.
 - Have their own DNS name. You are never given an IP address.
 - You need at least two subnets to create a load balancers
 - Read the ELB FAQ for classic load balancers
-- For monitor Application Load Balancer use :  CloudWatch metrics, VPC Flow Logs, CloudTrail logs. 
+- For monitor Application Load Balancer use :  CloudWatch metrics, VPC Flow Logs, CloudTrail logs.
 
 # Auto Scaling Group VS Target Group
 
@@ -353,6 +353,9 @@ if they dont say the type it's Clustered !!!
 - Architectures can get extremely complicated, AWS X-ray allows you to debug what is happening.
 - Lambda can do things globally, you can use it to back up S3 buckets to other S3 buckets etc.
 - Know your triggers.
+- Handling Errors In Lambda :
+    - if the execution of Lambda function is getting abruptly terminated (non-processed or failed payloads also in case of asynchronous request to a function), you can send notification by : Configuring Dead-Letter queue and send it to SNS or SQS
+    - Max memory limit and max execution time limit gets terminated without being caught in the handler exception.
 
 # EC2 - Exam Tips - Summary.
 
@@ -531,12 +534,27 @@ WHY 53 -> beacuse the DNS is on port 53
 - Eventual consistent reads (default)
 - Strongly consistent reads
 
-## Redshfit configuration
+## Redshift
+
+- Suitable for OLAP
 - Single Node (160Gb)
 - Multi-Node
     - Leader Node (manages client connections and receives queries)
     - Compute Node (store data and perform queries and computations) Up to 128 computes nodes.
-
+- Data Transfer : only within a VPC not outside it
+- Security :
+      - Encrypted in transit using SSL
+      - Encrypted at rest using AES-256 encryption
+      - By default RedShift takes care of key management
+- Availability :
+      - Currently available in only 1 AZ
+      - Can restore snapshots to new AZs in the event of outage.
+- Backups :
+      - Enabled by default within a 1 day retention period
+      - Maximum retention period is 35 days
+      - Always attempts to maintain at least three copies of your data (the original and replica on the compute nodes and
+        backup in Amazon S3)
+        
 ## Elasticache :
 - supports : memecached, Redis
 - web service that makes it easy to deploy, operate and scale an in-memory cache in the cloud.
