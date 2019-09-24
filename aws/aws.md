@@ -98,7 +98,7 @@ made to the S3 bucket. this can be done to another bucket.
 
 
 - Vault lock : allow you to lock your vault within  a variety of compliance controls that are designed to support such long-term records retention.
- 
+
 # CloudFront :
 
  Definition : A content delivery network (CDN) is a system of distributed servers (network) that deliver webpages and other web content to a user based
@@ -297,7 +297,12 @@ Solution : Take an application consistent snapshot.
     - Events : cloud watch events helps you respond to stats changes in your AWS ressources.
     - Logs : cloudwatch logs helps you to aggregate, monitor, and store logs.
 
-- Cloudwatch is for logging / monitoring where is cloud trail is for auditing.  
+- Cloudwatch is for logging / monitoring where is cloud trail is for auditing.
+
+# CloudTrail :
+
+- for auditing purpose
+- by default cloudtrail event log are encrypted using Amazon S3 server-side encryption  
 
 # AWS Command Line & EC2 :
 
