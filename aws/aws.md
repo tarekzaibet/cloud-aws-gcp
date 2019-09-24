@@ -90,6 +90,15 @@ made to the S3 bucket. this can be done to another bucket.
       - SSE-C Server side encryption with customer provided keys
 - client side encryption   
 
+# Glacier
+
+- Expedited : 1-5 minutes
+- Standard : 3-5 hours
+- Bulk : 5-12 hours  
+
+
+- Vault lock : allow you to lock your vault within  a variety of compliance controls that are designed to support such long-term records retention.
+ 
 # CloudFront :
 
  Definition : A content delivery network (CDN) is a system of distributed servers (network) that deliver webpages and other web content to a user based
@@ -723,7 +732,7 @@ Media transcoder in the cloud.
       - Shard : 5 transactions per second for read, up to a maximum total data read rate of 2 MB per second and up to 1000 records per second for writes, up to a maximum total data write rate of 1 Mb per second.
       - the data capacity of your stream is a function of the number of shards that you specify for the stream. The total capacity of the stream is the sum of the capacities of its shards.
       - 24H / 7 DAYS data retention
-      - replicates data accross 3 AZ, providing high availability and data durability 
+      - replicates data accross 3 AZ, providing high availability and data durability
       - Records : unit of data stored in Amazon Kinesis data stream.
       - Partition Key : used to seggragate and route records to different shards of a data stream.
 
