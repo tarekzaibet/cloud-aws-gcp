@@ -286,6 +286,10 @@ Solution : Take an application consistent snapshot.
 
 - Target Group is a way of getting network traffic routed via specified protocols and ports to specified instances. It's basically load balancing on a port level. This is used mostly to allow accessing many applications running on different ports but the same instance.
 
+# Networking
+
+- The instance retains its private ipv4 addresses and any ipv6 addresses when stopped and started. AWS releases the public ipv4 address and assigns a new one when it is stopped & started
+
 
 # Cloudwatch EC2 :
 
