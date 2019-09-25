@@ -572,6 +572,8 @@ WHY 53 -> beacuse the DNS is on port 53
       - Maximum retention period is 35 days
       - Always attempts to maintain at least three copies of your data (the original and replica on the compute nodes and
         backup in Amazon S3)
+      - Automated snapshots are deleted within the period of 1(Least) to 35 (Max) days (based on the retention period settings)
+      - Amazon Redshift never deletes Manual snapshots automatically.
 
 ## Elasticache :
 - supports : memecached, Redis
