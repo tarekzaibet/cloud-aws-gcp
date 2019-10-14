@@ -182,13 +182,20 @@ READ S3 FAQ BEFORE THE EXAM
 
 - EBS Volume types :
 
+    - SSD-backed volumes optimized for transactional workloads involving frequent read/write operations with small I/O size, where the dominant performance attribute is IOPS
+    - HDD-backed volumes optimized for large streaming workloads where throughput (measured in MiB/s) is a better performance measure than IOPS
+
     - SSD :
       - General purpose SSD : balances price and performance for a wide variety of workloads.
-      - Provisioned IOPS SSD : Highest-performance SSD volumes for missions-critical low-latency or high-throughput workloads  
+          - Use cases : recommended for most workloads, System boot volumes, Virtual Desktops, Low-Latency interactive apps, Dev & Test environments.
+      - Provisioned IOPS SSD : Highest-performance SSD volumes for missions-critical low-latency or high-throughput workloads
+          - Use cases :    Critical business applications that require sustained IOPS performance, or more than 16,000 IOPS or 250 MiB/s of throughput per volume,  Large Database Workloads, such as : MongoDB, Cassandra, Microsoft SQL Server, mySQL, postgreSQL, Oracle.
 
     - Magnetic :
       - Throughout optimized HDD : Low cost HDD volumes designed for frequently accessed, thoughput-intensive workloads.
-      - Cold HDD : Lowest cost HDD volume designed for less frequently accessed workloads
+          - Use cases : Streaming workloads requiring consistent, fast throughput at a low price. Big Data, Data Warehouse, Log processing, Cannot be a boot volume.
+      - Cold HDD : Lowest cost HDD volume designed for less frequently accessed workloads.
+          - Use cases : Throughput-oriented storage for large volumes of data that is infrequently accessed, Scenarios where the lowest storage cost is important, Cannot be a boot volume.
       - Magnetic : Previous generation.Can be a boot volume.
 
 # Security group basics :
@@ -519,6 +526,23 @@ WHY 53 -> beacuse the DNS is on port 53
 - if you want to route traffic approximately randomly to multiple resources, such as web servers, you can create one multivalue answer record for each resource and, optionally, associate an Amazon Route 53 health check with each record. For example, suppose you manage an HTTP web service with a dozen web servers that each have their own IP address. No one web server could handle all of the traffic, but if you create a dozen multivalue answer records, Amazon Route 53 responds to DNS queries with up to eight healthy records in response to each DNS query. Amazon Route 53 gives differents answers to differents DNS resolvers. If a web server becomes unavailable after a resolver caches a response, client sofwtare can try another IP address in the response.  
 
 !! there is a limit to the number of domain names that you can manages using route 53. its true and false, there is a limit of 50 domain names however this limit can be raised by contacting AWS support. !!
+
+## Summary of A , CNAME, ALIAS, AAAA, MX Record
+
+- A Record :
+  - A record value is always an IP Address. The IP Should be static.
+  - Use case : A record will be used to map your root/naked domain-name viz example.com  to  Elastic IP say 198.51.100.77.
+
+- CNAME :
+  - CNAME record maps a name to another name. It can never be an IP address.
+  - Use case : An A record for example.com (i.e. root/naked domain) points to the server IP address
+               A CNAME record for www.example.com points to example.com  
+
+- ALIAS :
+  - Alias record is an Amazon Route 53-specific virtual record.  So, it works only with Amazon Route 53. Whenever you come across questions related to mappings of Amazon specific resources/ services say Amazon ELBs (Elastic Load Balancers), Amazon CloudFront distributions, AWS Elastic Beanstalk environments, or Amazon S3 buckets that are configured as websites, it should ring a bell for you to consider Alias record in Route 53.
+
+- AAAA : record is similar to an A record but it is for IPv6 addresses (whereas A record is for IPv4).
+- MX records  : (Mail Exchange records) is used for setting up Email servers. MX records must be mapped correctly to deliver email to your address.
 
 # Databases on AWS
 
