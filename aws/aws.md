@@ -399,7 +399,7 @@ if they dont say the type it's Clustered !!!
 - To create a snapshot for amazon EBS volumes that serve as root devices, you should stop the instance before taking the snapshot.
 
 
--- EVS & Instance Store :  
+-- EBS & Instance Store :  
 
 - Instance store volumes are sometimes called epehemeral storage.
 - Instance store volumes cannot be stopped. If the underlying host fails, you will lose your data.
@@ -525,6 +525,35 @@ WHY 53 -> beacuse the DNS is on port 53
 ## RDS
 
 - to connect rds instance to ec2, you need to ( in the security group of rds ) open MySQL on port 3306 to security group of your EC2 instance.
+
+- Backups  :
+  - Automated backups are enabled by default. You get free storage matching the size of the DB
+  - Automated backups are recoverable at any time within the configurable retention period (between 1 and 35 days)
+  - When restoring from an automated backup or manual snapshot, the restored instance will be a new RDS instance with a new DNS endpoint.
+
+- Encryption :
+  - Encryption at rest is supported for : MySQL, Oracle, SQL Server, PostgreSQL, MariaDB, AuroraDB
+  - Encrypting existing DB is not supported. To do this, you will need to create a new encrypted instance and migrate data to it. The encryption key can be stored in KMS.
+
+- Failover :
+  - When Multi-AZ failover is enabled, AWS creates a primary RDS instance, and asynchronously replicates data to a standby instance in a different AZ.
+  - if the primary DB instance fails, the following happens :
+    - The standby replica (which is stored in a different AZ to the primary) is promoted to become the new primary.
+    - The DNS record of the DB instance is changed to point to the new primary.
+    - The original primary DB instance is terminated, and a new standby replica is created.
+    - Failover is for disaster recovery only.
+    - Failover and Multi-AZ is only supported for : MySQL, Oracle, Maria DB, PostgreSQL
+  - You can convert existing DB instances to Multi AZ deployments by modifying the DB instance and specifiying the Multi-AZ option.
+  - The failover mechanism automatically changes the DNS record of the DB instance to point to the standby DB instance. As a result, you need to re-establish any existing connections to your DB instance.
+
+- Read Replicas :
+    - Supported by : mySQL, PostgreSQL, MariaDB
+    - Are not Multi-AZ
+    - Have their own DNS address and are not Mulit-AZ
+    - Can be promoted to a standalone, writable DB
+    - For a DB up to 5 read replica are supported
+    - Possible to have Read replicas of read replicas, but problem is Latency
+    - Read replicas are supported in seperate regions from the source DB for both MySQL and MariaDB but not for PostgreSQL  
 
 ## AWS Database type
  - RDS - OLTP : sql, mysql, postgresSQL, Oracle, MariaDB, Aurora
