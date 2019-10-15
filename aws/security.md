@@ -23,3 +23,9 @@ With AWS Organizations, you can centrally manage policies across multiple AWS ac
 - For DDoS attacks use a CDN service in front of the web application
 - For Cross site scripting and others use AWS WAF.
 AWS WAF is a web application firewall that helps protect your web applications from common web exploits that could affect application availability, compromise security, or consume excessive ressources.
+
+# AWS Config  
+
+- AWS Config is a service that enables you to assess, audit, and evaluate the configurations of your AWS resources.
+- Config continuously monitors and records your AWS resource configurations and allows you to automate the evaluation of recorded configurations against desired configurations.
+- With Config, you can review changes in configurations and relationships between AWS resources, dive into detailed resource configuration histories, and determine your overall compliance against the configurations specified in your internal guidelines. This enables you to simplify compliance auditing, security analysis, change management, and operational troubleshooting.

@@ -590,7 +590,7 @@ WHY 53 -> beacuse the DNS is on port 53
 - Aurora is designed to transparently handle the loss of up to two copies of data without affecting database write availability and up to three copies without affecting read availability.
 - Aurora storage is also self-healing. Data blocks and disks are continusously scanned for errors and repaired automatically.
 
-## Aurora Replicase
+## Aurora Replicas
 - 2 types of replicas are available.
 - Aurora Replicas (currently 15)
 - MySQL Read Replicas (currently 15)
