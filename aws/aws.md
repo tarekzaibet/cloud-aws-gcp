@@ -373,7 +373,7 @@ if they dont say the type it's Clustered !!!
 - Lambda scales out (not up) automatically
 - Lambda functions are Independent, 1 event = 1 function.
 - Lambda is serverless
-- There are other SERVERLESS Services in amazon (S3, SNS etc) NEED TO KNOW
+- There are other SERVERLESS Services in amazon (S3, SNS, SQS, DynamoDB, Lamdba, API Gateway, Kinesis, CloudWatch events) NEED TO KNOW
 - Lmabda functions can trigger other lambda functions, 1 event can = x functions if functions trigger other functions.
 - Architectures can get extremely complicated, AWS X-ray allows you to debug what is happening.
 - Lambda can do things globally, you can use it to back up S3 buckets to other S3 buckets etc.
@@ -381,6 +381,9 @@ if they dont say the type it's Clustered !!!
 - Handling Errors In Lambda :
     - if the execution of Lambda function is getting abruptly terminated (non-processed or failed payloads also in case of asynchronous request to a function), you can send notification by : Configuring Dead-Letter queue and send it to SNS or SQS
     - Max memory limit and max execution time limit gets terminated without being caught in the handler exception.
+- Lambda supports the following : Java, Node JS, Python, C#
+- Maximum execution duration per request is 300 seconds or 5 minutes
+- There is a limit of 1000 concurrent executions
 
 # EC2 - Exam Tips - Summary.
 
