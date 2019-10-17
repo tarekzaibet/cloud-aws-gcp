@@ -229,6 +229,7 @@ READ S3 FAQ BEFORE THE EXAM
 - You can share snapshots, but only if thet are unencrypted.
    - these snapshots can be shared with other AWS accounts or made public.
 - By default the root volume will be deleted if instance is terminated, but we can uncheck that.
+- EBS are replicated within their availability zone (Redundancy)
 
 # RAID, Volumes & Snapshots
 - RAID = Redundant Array of Independent Disks.
@@ -607,6 +608,7 @@ WHY 53 -> beacuse the DNS is on port 53
 - Spread across 3 geographically distinct data centers.
 - Eventual consistent reads (default)
 - Strongly consistent reads
+- DynamoDB Stream is an ordered flow of information about changes to items in an Amazon DynamoDB table. 
 
 ## Redshift
 
@@ -784,6 +786,9 @@ Media transcoder in the cloud.
 - Use throttling and API caching to improve API performance
 - Access control mechanims for AWS API Gateway: Resource policies, Lambda authorizers, Usage Plans.
 - Refresh cache is not a cache setting.
+- You control access to Amazon API Gateway with IAM permissions by controlling access to the two API Gateway component processes:
+  - To create, deploy, manage and API in API Gateway, you must grant the PAI developer permissions to perform the required actions supported by the API management component of API Gateway
+  - To call a deployed API or to refesh the API caching, you must grant the API caller permissions to perform required IAM actions supported by the API execution component of API Gateway.
 
 ## Kinesis 101
 

@@ -29,3 +29,12 @@ AWS WAF is a web application firewall that helps protect your web applications f
 - AWS Config is a service that enables you to assess, audit, and evaluate the configurations of your AWS resources.
 - Config continuously monitors and records your AWS resource configurations and allows you to automate the evaluation of recorded configurations against desired configurations.
 - With Config, you can review changes in configurations and relationships between AWS resources, dive into detailed resource configuration histories, and determine your overall compliance against the configurations specified in your internal guidelines. This enables you to simplify compliance auditing, security analysis, change management, and operational troubleshooting.
+
+# When to create multiple AWS accounts
+
+- Most companies will want to create more than one AWS account because multiple accounts provide the highest level of resource and security isolation.
+- Answering "yes" to any of the following questions is a good indication that you should consider creating additional AWS accounts :
+  - Does the business require administrative isolation between workloads ?
+  - Does the business require limited visibility and discoverability of workloads ?
+  - Does the business require isolation to minimize the blast radius ?
+  - Does the business require strong isolation of recovery and/or auditing data?
