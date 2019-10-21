@@ -197,7 +197,11 @@ READ S3 FAQ BEFORE THE EXAM
       - Cold HDD : Lowest cost HDD volume designed for less frequently accessed workloads.
           - Use cases : Throughput-oriented storage for large volumes of data that is infrequently accessed, Scenarios where the lowest storage cost is important, Cannot be a boot volume.
       - Magnetic : Previous generation.Can be a boot volume.
-
+    - Capacity :
+      - HDD : 500 IOPS
+      - Cold HDD :250 IOPS
+      - Provisioned IOPS SSD : 64000
+      - General purpose SSD : 16000 
 # Security group basics :
 
 - All inbound traffic is blocked by default.
@@ -608,7 +612,7 @@ WHY 53 -> beacuse the DNS is on port 53
 - Spread across 3 geographically distinct data centers.
 - Eventual consistent reads (default)
 - Strongly consistent reads
-- DynamoDB Stream is an ordered flow of information about changes to items in an Amazon DynamoDB table. 
+- DynamoDB Stream is an ordered flow of information about changes to items in an Amazon DynamoDB table.
 
 ## Redshift
 
