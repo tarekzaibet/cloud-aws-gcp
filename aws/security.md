@@ -38,3 +38,34 @@ AWS WAF is a web application firewall that helps protect your web applications f
   - Does the business require limited visibility and discoverability of workloads ?
   - Does the business require isolation to minimize the blast radius ?
   - Does the business require strong isolation of recovery and/or auditing data?
+
+# Amazon Cognito
+
+- Provides authentification, authorization and user management for your web and mobile apps.
+- Your users can sign in directly with a user name and password, or through a third party such as Facebook, Amazon or Google.
+- The two main components of Amazon Cognito are user pools and identity pools.
+- User Pools :
+  - provide sign-up and sign-in options for your app users.
+  - Social sign in : facebbok, google, Amazon..
+  - User directory Management
+  - Security features such as MFA
+  - Built in customizable web UI to sign in Users
+
+- Identity Pools :
+  - enables you to grant your users access to other AWS services.
+  - enables users to obtain temporary AWS credentials to access AWS services.  
+
+- You can use User Pools and Identity Pools, together or separated.
+- Availability : Cognito is distributed across multiples AZ's  
+
+
+# PCI Compliance if web app is using AWS CloudFront service
+
+- AWS recommend that you log your CloudFront usage data for the last 365 days for future auditing purposes. To log usage data you can do the following :
+    - Enable CloudFront access logs
+    - Capture requests that are sent to the CloudFront API
+
+# NAT Gateway High Availability :
+
+- if you have resources in multiple AZ's and they share one NAT Gateway, in the event that the NAT Gateway's Availability Zone is down, resources in the other AZ lose internet access.
+- To create an AZ-independent architecture, create a NAT Gateway in each AZ and configure your routing to ensure that resources use the NAT Gateway in the same AZ. 
