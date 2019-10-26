@@ -30,7 +30,11 @@ andy amount of data from anywhere on the web.
 - S3 in a universal namespace, names have to be unique globally (bucket names)
 - when you upload a file to S3 you will get a HTTP 200 response if the upload
 was successful.
-- valid url : https://s3-eu-west-1 .com/acloudguru
+- valid url :
+      https://s3-eu-west-1 .com/acloudguru
+      http://bucket.s3-aws-region.amazonaws.com
+      http://s3.aws-region.amazonaws.com/bucket
+      
 - Read after write consistency for PUTS of new objects.
 - Eventual consistency for overwrite PUTS and DELETES ( can take some time to
 propogate)
@@ -201,7 +205,7 @@ READ S3 FAQ BEFORE THE EXAM
       - HDD : 500 IOPS
       - Cold HDD :250 IOPS
       - Provisioned IOPS SSD : 64000
-      - General purpose SSD : 16000 
+      - General purpose SSD : 16000
 # Security group basics :
 
 - All inbound traffic is blocked by default.
@@ -824,6 +828,15 @@ Media transcoder in the cloud.
 
 EXAM Tips : SQS is important FAQ, go tu summary vid
 
+## ECS
+- Features for AWS ECS :
+    - Task and scheduling
+    - Task definitions
+    - Clusters
+    - Container Agent
+- Task definition  = JSON template that describes containers which forms your application
+    - describes one or more containers, up to a maxinmum of ten.  
+- You have root access to the operating system of your container instances, enabling you to take ownership of the os security settings as well as load and configure additional software components for security capabilities such as monitoring, patch management, log management and host intrusion detection.
 # Architecting for the cloud Best practices whitepaper
 
 ## Business Benefits of Cloud
