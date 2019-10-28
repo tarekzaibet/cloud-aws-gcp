@@ -76,8 +76,12 @@
 
 ## Cloud SQL
 
-- fully managed relational database, you can choose mySQL, PostgreSQL and SQL server as db engine. Google handles replication, patch management and database management to ensure availability and performance. 
+- fully managed relational database, you can choose mySQL, PostgreSQL and SQL server as db engine. Google handles replication, patch management and database management to ensure availability and performance.
 
 ## Cloud Firestore
 
 - a cloud hosted no-sql database. You store data in documents, which contains fields mapping to values. Theses documents are stored in collections, which are simply containers that help you organize and query your documents.
+
+# Bigtable
+
+- fast, fully managed, massivly scalable noSQL database service. it's a wide column database. 
