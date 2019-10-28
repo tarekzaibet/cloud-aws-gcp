@@ -82,6 +82,19 @@
 
 - a cloud hosted no-sql database. You store data in documents, which contains fields mapping to values. Theses documents are stored in collections, which are simply containers that help you organize and query your documents.
 
-# Bigtable
+## Bigtable
 
-- fast, fully managed, massivly scalable noSQL database service. it's a wide column database. 
+- fast, fully managed, massivly scalable noSQL database service. it's a wide column database.
+
+## Cloud Filestore
+
+- managed file storage service for applications that require a filesystem interface and shared filesystem for data.
+- use cloud filestore to create fully managed NFS file servers on GCP for use with applications running on Compute engine VM's or Google Kubernetes engine clusters.
+
+## Cloud Spanner
+
+- mission critical, fully managed relational database service that offers transactional consistency at global scale, schemas, SQL, and automatic, asynchronous replication for HA
+
+## Cloud Memorystore
+
+- Memorystore for redis, fully managed in memory data store service buit on scalable, secure and highly available infrastructure managed by google
