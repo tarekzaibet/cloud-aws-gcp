@@ -144,7 +144,7 @@
 
 - Memorystore for redis, fully managed in memory data store service buit on scalable, secure and highly available infrastructure managed by google
 
-# Compute
+# Compute Products
 
 ## App Engine
 
@@ -186,6 +186,6 @@
     - if an instance crashes an automatic new one is created
   - zonal : instances in the same zone
   - regional : instances in the same region
-- unmanaged : 
+- unmanaged :
   - dissimilar instances that you can arbitraily add and remove from the group
   - doesn't have auto-scaling, instance template, rolling update  
