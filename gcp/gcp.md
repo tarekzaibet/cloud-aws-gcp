@@ -77,28 +77,115 @@
 ## Cloud SQL
 
 - fully managed relational database, you can choose mySQL, PostgreSQL and SQL server as db engine. Google handles replication, patch management and database management to ensure availability and performance.
+- it's zonal (you specify a region than a zone)
+- scaling is manual both horizontally and vertically.
+- you can manually enable high availability : by changing the instance availabillty from single zone to high availabillty, the instance will automatically fail over to another zone in your selected region in case of an outage. High availabillty is recommended for production instances and increases your cost.
+- you can create a clone of your db : separate, independent copy of a master instance and assists in point-in-time recovery, you can choose to clone the latest state of instance, or from earlier position (manually enter an earlier binary log position)
+
+### Replication
+
+- MySQL and PostgreSQL : Data replication between multiple zones with automatic failover with strong replica consistency
+- SQL Server : not available
+
+### Backups
+
+- MySQL : automated and on demand backups
+- PostgreSQL : automated and on demand backups
+- SQL Server : automated and on demand backups
+
+
+## Cloud Spanner
+
+- regional, multi-regional (you choose a configuration where your nodes and data are located)
+- mission critical, fully managed relational database service that offers transactional consistency at global scale, schemas, SQL, and automatic, asynchronous replication for HA
+- uses SQL to query data
+- can scale from one node to thousands of nodes
+- can scale horizontally
+- strongly consistent
+- requires 3 nodes for a production environment
+
+## Cloud Spanner vs Cloud SQL
+
+- Spanner is horizontaly scalable whereas Cloud SQL is not, with cloud SQL you are limited with having everything on one server.
+- for Cloud SQL maximal data throughput through network is 2000 MB/s
+- With cloud spanner you can scale horizontaly by adding nodes, with every node throughput increases.
+- Each node in Spanner has 10000 QPS for reads or 2000 QPS for writes and 2 TB of storage
+- Spanner is more expensive
+- Cloud SQL is for basic and generic SQL needs while Spanner is best used for massive scale opportunites
+- better use cloud sql for not massive data, such as customer list
+- they are both used for OLTP
+- data distribution for cloud sql is zonal whereas it's regional or global for cloud spanner
 
 ## Cloud Firestore
 
 - a cloud hosted no-sql database. You store data in documents, which contains fields mapping to values. Theses documents are stored in collections, which are simply containers that help you organize and query your documents.
+- similar to dynamoDB
+- Fully Managed noSQL db
 
 ## Bigtable
 
 - fast, fully managed, massivly scalable noSQL database service. it's a wide column database.
+- Regional
+- Automatic storage scaling
+- Manual processing nodes scaling
+- when to use it ? :
+  - storing >= 1 TB of structured data
+  - when the volume of writes are very high
+  - when strong consistency and highly performant read/right is required
+- Integrates with : Hadoop, Dataflow, Dataproc
 
 ## Cloud Filestore
 
 - managed file storage service for applications that require a filesystem interface and shared filesystem for data.
 - use cloud filestore to create fully managed NFS file servers on GCP for use with applications running on Compute engine VM's or Google Kubernetes engine clusters.
 
-## Cloud Spanner
-
-- mission critical, fully managed relational database service that offers transactional consistency at global scale, schemas, SQL, and automatic, asynchronous replication for HA
 
 ## Cloud Memorystore
 
 - Memorystore for redis, fully managed in memory data store service buit on scalable, secure and highly available infrastructure managed by google
 
-# Compute Products
+# Compute
 
-## Kubernetes Engine 
+## App Engine
+
+- fully managed
+- takes care of provisioning servers and scaling your app instances based on demand
+- has two environments : standard and flexible
+- standard : Python, Java, Go, PHP
+- flexible : Java 8, Servlet 3.1, Jetty 9, Node js, ruby, php, .net, go
+
+## Compute Engine
+
+- you choose a zone where to create a compute engine
+- you have complete controle over : CPU/GPU, Memory, Disk Space, OS, Firewalls, Network connection/management
+
+### storage in Compute Engine
+
+- Local SSD : (epehemeral)
+  - belongs to a zone
+  - 375GB
+  - if the instance shuts down the data is lost
+  - pay for GB-month provisioned
+
+- Persistent Disk
+  - belongs to a zone
+  - performance scales with volume size
+  - can be resized while in use but will need file system update within the VM
+  - snapshots are incremental
+
+### instance groups
+
+- you can create VM's via instance group so you don't create them individually
+- you create VM's using instance template
+- two types of instance groups : managed (zonal or regional ) and unmanaged
+- managed :
+  - use instance templates to create a group of identical ressources.
+  - benefits of this are :
+    - add load balancing to route traffic to instances in instance group
+    - automatic scaling
+    - if an instance crashes an automatic new one is created
+  - zonal : instances in the same zone
+  - regional : instances in the same region
+- unmanaged : 
+  - dissimilar instances that you can arbitraily add and remove from the group
+  - doesn't have auto-scaling, instance template, rolling update  
