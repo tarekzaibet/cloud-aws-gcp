@@ -188,4 +188,50 @@
   - regional : instances in the same region
 - unmanaged :
   - dissimilar instances that you can arbitraily add and remove from the group
-  - doesn't have auto-scaling, instance template, rolling update  
+  - doesn't have auto-scaling, instance template, rolling update
+
+## Google Kubernetes Engine
+
+- managed environment for deploying, managing and scaling your containerized applications using google infrastructure.
+- consists of multiple machines grouped together to form a cluster
+- benefits of using GKE :
+  - load balancing for compute engine instances
+  - automatic scaling of your cluster's node instance count
+  - automatic upgrades for your cluster's node software
+  - node auto-repair
+  - logging and monitoring with stackdriver
+- GKE masters are automatically upgraded to run new versions of Kubernetes
+- Production clusters require >= 3 nodes
+- No IAM Integration : you have to manage the secrets manually
+- Powered by kubernetes
+- Managed applications not machines
+
+# Big Data Products
+
+## Composer
+
+- Cloud Composer is a managed Apache Airflow (used to orchestrate your data pipelines) service that helps you create, schedule, monitor and manage workflows. Cloud Composer automation helps you create Airflow environments quickly and use Airflow-native tools, such as the Airflow web UI and command line tools, so you can focus on your workflows and not your infrastructure.
+- to learn more about airflow : https://airflow.apache.org/concepts.html
+
+## Dataproc
+
+- Cloud Dataproc is a managed Apache Spark and Apache Hadoop service that lets you take advantage of open source data tools for batch processing, querying, streaming, and machine learning. Cloud Dataproc automation helps you create clusters quickly, manage them easily, and save money by turning clusters off when you don't need them. With less time and money spent on administration, you can focus on your jobs and your data.
+
+## Dataflow
+
+- Fully managed service for transforming and enriching data in stream (real time) and batch (historical) modes with equal reliability and expressiveness. With its serverless approach to ressource provisioning and management, you have access to virtually limitless capcity to solve your biggest data processing challenges, while paying only for what you use.
+- Managed service for executing a wide variety of data processing patterns. You can deploy batch or streaming data processing pipelines using Cloud Dataflow.
+- You create your pipelines with Apache Beam program and then run them on the Cloud Dataflow service.
+- to learn more about apache beam : https://beam.apache.org/documentation/pipelines/design-your-pipeline/
+
+## BigQuery
+
+- data warehouse
+- designed to make data analysis more productive
+- no infrastructure to manage (noOPS)
+- use SQL to query data
+
+## Pub/Sub
+
+- fully managed
+- send and receive message between independent applications.
