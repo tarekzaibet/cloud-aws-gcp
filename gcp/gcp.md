@@ -290,3 +290,12 @@
 ## Cloud Source Repository
 
 - Cloud Source Repositories are fully featured, private Git repositories hosted on Google Cloud Platform.
+
+# Operations and management products
+
+## Stackdriver
+
+- a global service
+- a set of services for monitoring, logging, and diagnosing apps on GCP and AWS
+
+## Stackdriver monitoring
