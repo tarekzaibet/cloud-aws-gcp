@@ -215,13 +215,20 @@
 
 ## Dataproc
 
-- Cloud Dataproc is a managed Apache Spark and Apache Hadoop service that lets you take advantage of open source data tools for batch processing, querying, streaming, and machine learning. Cloud Dataproc automation helps you create clusters quickly, manage them easily, and save money by turning clusters off when you don't need them. With less time and money spent on administration, you can focus on your jobs and your data.
+- Zonal
+- Cloud Dataproc is a managed Apache Spark and Apache Hadoop service that lets you take advantage of open source data tools for batch processing, querying, streaming, and machine learning.
+- Cloud Dataproc automation helps you create clusters quickly, manage them easily, and save money by turning clusters off when you don't need them. With less time and money spent on administration, you can focus on your jobs and your data.
+- Scales by removing or adding nodes, even while jobs are running
+- Integrates with :  GCS, BigTable, BigQuery, some stackdriver services
+- pay for GCE servers used in the cluster
 
 ## Dataflow
 
+- Zonal
 - Fully managed service for transforming and enriching data in stream (real time) and batch (historical) modes with equal reliability and expressiveness. With its serverless approach to ressource provisioning and management, you have access to virtually limitless capcity to solve your biggest data processing challenges, while paying only for what you use.
 - Managed service for executing a wide variety of data processing patterns. You can deploy batch or streaming data processing pipelines using Cloud Dataflow.
 - You create your pipelines with Apache Beam program and then run them on the Cloud Dataflow service.
+- Integratew with : Pub/Sub, Datastore, BigQuery, BigTable, Cloud ML, Stackdriver
 - to learn more about apache beam : https://beam.apache.org/documentation/pipelines/design-your-pipeline/
 
 ## BigQuery
@@ -233,5 +240,53 @@
 
 ## Pub/Sub
 
+- Global
 - fully managed
 - send and receive message between independent applications.
+- Pay for data volume
+- Messages :
+    - Can be up to 10 MB
+    - Undelivered messages are stored for 7 days
+    - There is no Dead Letter Queue (DLQ)
+- Modes :
+    - Push : Delivers to HTTP endpoints
+    - Pull : Delivers messages to requesting clients and awaits for ACK to delete or until timer expires
+    - lets client set rate of consumption, and supports batching and long-polling
+
+# Development Products
+
+## Cloud Build
+
+- service that executes your builds on Google Cloud Platform's infrastructure.
+- can import source code from a variety of repos (Google source repo, github, bitbucket)
+- produce artifacts such as a docker containers or java archives
+- you can use the supported build steps or write your own build steps
+- each build step is run in a docker container
+
+## Cloud Deployment Manager
+
+- allows you to specify all the ressources needed for your application in a declarative format using yaml.
+- you can also use python or jinja2 templates to parameterize the configuration and allow reuse of common deployment paradigms such as a load balancer, auto-scaled instance group.
+- allows you to have repeatable deployment configuration in one file
+
+## Cloud Tasks
+
+- fully managed service
+- allows you to manage the execution, dispatch and delivery of a large number of distributed tasks.
+- you can asynchronously perform work outside of a user request
+- your tasks can be executed on App Engine or any arbitrary HTTP endpoint
+
+## Identity platform
+
+- Identity Platform provides back-end services, SDKs, and UI libraries that make authenticating users to your applications and services easy.
+
+## Cloud Endpoints
+
+- Global
+- Pay per call to your API
+- Handles Auth, monitoring, logging and API keys for APIs backed by GCP
+- Integrates with : Firebase, Auth0, Google Auth
+
+## Cloud Source Repository
+
+- Cloud Source Repositories are fully featured, private Git repositories hosted on Google Cloud Platform.
