@@ -81,4 +81,33 @@ Different ways :
     Solution:
     - Retries with backoff
     - Increase shards (scaling)
-    - Ensure your partition key is a good one 
+    - Ensure your partition key is a good one
+
+- Kinesis Producer Library (KPL)
+  - C++ / Java library
+  - Used for building high performance, long-running producers
+  - Automated and configurable retry mechanism
+  - Synchronous or Asynchronous API (better performance for async)
+  - Submits metrics to CloudWatch for monitoring
+  - Compression must be implemented by the user
+  - KPL Records must be de-coded with KCL or special helper library
+  - Batching (both turned on by default) - increase throughput, decrease cost:
+      - Collect Records and Write to multiple shards in the same PutRecords API Call
+      - Aggregate - increased latency :
+        - Capability to store multiple records in one record (go over 1000 records per second limit)
+        - Increase payload size and improve throughput (maximize 1MB/s limit)
+
+      - example :
+         1 - receive a 2 KB record
+         2 - KPL waits a bit
+         3 - receive  a 40 KB record
+         4 - receive  a 500 KB record
+         5 - KPL aggregates all into one record < 1MB
+         6 - KPL does this again on other received records
+         7 - now KPL has to send multiple PutRecords but no it will send all
+         in one time using PutRecords - collection (1 PUT multiple records)
+
+         now we have aggregation and collection
+
+        - how kinesis know how much to wait in order to batch these records ?
+           by setting RecordMaxBufferedTime (default 100ms) 
