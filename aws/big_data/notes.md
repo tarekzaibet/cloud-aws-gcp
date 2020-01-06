@@ -15,7 +15,7 @@
 
 - managed alternative to Apache Kafka
 - suitable for Real Time & for application logs, metrics, IoT, clickstreams
-- good for streaming processing freameworks
+- good for streaming processing frameworks
 - data is automatically replicated in 3 AZ
 
 - streams : low latency streaming ingest at scale
@@ -41,4 +41,4 @@
 - consist of : data blob, record key, sequence number.
 - data blob : data being sent, 1MB max, can represent anything, sent in bytes
 - record key : sent to group record in shards, same key = same shard, better to use highly distributed key to avoid the "hot partition" problem
-- sequence number : unique identifier for each record put in shards. 
+- sequence number : unique identifier for each record put in shards.
