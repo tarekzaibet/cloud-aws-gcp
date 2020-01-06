@@ -110,4 +110,16 @@ Different ways :
          now we have aggregation and collection
 
         - how kinesis know how much to wait in order to batch these records ?
-           by setting RecordMaxBufferedTime (default 100ms) 
+           by setting RecordMaxBufferedTime (default 100ms)
+
+- Kinesis Agent :
+    - Monitor Log files and sends them to kinesis data streams
+    - Java-based agent, built on top of KPL
+    - Install in Linux-based server environments
+
+    - Features :
+      - write from multiple directories and write to multiple streams
+      - routing feature based on directory / log file
+      - pre-process data before sending to streams (single line, csv to json, log to json)
+      - the agent handles file rotation, checkpointing and retry upon failures
+      - Emits metrics to CloudWatch for monitoring
