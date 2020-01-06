@@ -42,3 +42,19 @@
 - data blob : data being sent, 1MB max, can represent anything, sent in bytes
 - record key : sent to group record in shards, same key = same shard, better to use highly distributed key to avoid the "hot partition" problem
 - sequence number : unique identifier for each record put in shards.
+
+#### Kinesis Data Streams Limits
+- Producer :
+  - 1 MB/s or 1000 messages/s at write PER SHARD
+  - "ProvisionedThroughputException" otherwise
+
+- Consumer Classic :
+  - 2MB/s at read PER SHARD across all consumers
+  - 5 API calls per second PER SHARD across all consumers
+
+- Consumer Enhanced Fan-Out :
+  - 2MB/s at read PER SHARD, PER ENHANCED CONSUMER
+  - No API calls needed (push model)
+
+- Data Retention :
+  - 24 hours data retention by default 
