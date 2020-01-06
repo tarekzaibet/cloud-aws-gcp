@@ -12,3 +12,14 @@
               - Data Pipeline
 
 ## AWS Kinesis  
+
+- managed alternative to Apache Kafka 
+- suitable for Real Time & for application logs, metrics, IoT, clickstreams
+- good for streaming processing freameworks
+- data is automatically replicated in 3 AZ
+
+- streams : low latency streaming ingest at scale
+- firehose : load streams into s3, Redshift, elasticsearch & splunk
+- analytics : perform real time analytics on streams using SQL
+
+### Kinesis Streams
