@@ -123,3 +123,31 @@ Different ways :
       - pre-process data before sending to streams (single line, csv to json, log to json)
       - the agent handles file rotation, checkpointing and retry upon failures
       - Emits metrics to CloudWatch for monitoring
+
+#### Kinesis Consumers - Classic
+
+- Kinesis SDK
+- Kinesis Client Library (KCL)
+- Kinesis Connector Library
+- 3rd party libraries : spark, log4j..
+- Kinesis Firehose
+- AWS Lambda
+- Kinesis Consumer Enhanced Fan-Out
+
+      - Kinesis Consumer SDK - GetRecords :
+        - Classic Kinesis - Records are polled by consumers from a shard
+        - Each shard has 2 MB total aggregate throughput
+        - GetRecords returns up to 10 MB of data (then throttle for 5 seconds) or up to 10000 records
+        - Maximum of 5 GetRecords API calls per shard per second = 200ms latency
+        - if 5 consumers application consume from the same shard, means every consumer can poll once a second a receive less than 400 KB/s
+
+      - Kinesis Client Library (KCL):
+        - Java-first library put exists for other languages (golang, python, ruby, node)
+        - Read records from kinesis produced with the KPL (de-aggregation)
+        - Share multiple shards with multiple consumers in one "group", shard discovery
+        - Checkpointing feature to resume progress (go back where it stopped)
+        - Leverages DynamoDB for coordination and checkpointing (one row per shard)
+          - make sure you provision enough WCU / RCU
+          - or use on-demand for DynamoDB
+          - Otherwise DynamoDB may slow down KCL
+        - Record processors will process data 
