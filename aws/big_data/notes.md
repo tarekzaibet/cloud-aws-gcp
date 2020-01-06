@@ -57,4 +57,28 @@
   - No API calls needed (push model)
 
 - Data Retention :
-  - 24 hours data retention by default 
+  - 24 hours data retention by default
+
+#### Kinesis Producers
+
+How to produce data with kinesis.
+Different ways :
+    - Kinesis Producer SDK - PutRecord(s)
+    - Kinesis Producer Library (KPL)
+    - Kinesis Agent
+    - 3rd Party libraries: Spark, Log4j, Kafka
+
+- Kinesis Producer SDK - PutRecord(s)
+  - APIs that are used are PutRecord (one) and PutRecords (many records)
+  - PutRecords uses batching and increases throughput => less HTTP requests
+  - ProvisionedThroughputException if we go over the limits
+  - Use case : low throughput, higher latency, simple API, AWS Lambda
+  - Managed AWS sources for Kinesis Data Streams : CloudWatch Logs, AWS IoT, Kinesis Data Analytics
+  - Exception that can happen : ProvisionedThroughputException happens when :
+    - exceeding MB/s or TPS for any shard
+    - Make sure you don't have a hot shard (such as your partition key is bad and too much data goes to that partition)
+
+    Solution:
+    - Retries with backoff
+    - Increase shards (scaling)
+    - Ensure your partition key is a good one 
