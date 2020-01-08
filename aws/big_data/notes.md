@@ -153,7 +153,7 @@ Different ways :
           - Otherwise DynamoDB may slow down KCL
         - Record processors will process data
 
-#### Kinesis Scaling 
+#### Kinesis Scaling
 
 - Adding Shards :
   - Also called "shard splitting"
@@ -170,3 +170,18 @@ Different ways :
   - Resharding cannot be done in parallel. Plan capacity in advance
   - You can only perform one resharding operation at a time and it takes a few seconds
   - For 1000 shards, it takes 30K seconds (8.3 hours) to double the shards to 2000.
+
+
+### Kinesis Firehose
+
+- Fully managed Service, no administration
+- Near Real Time (60 seconds latency minimum for non full batches)
+- Load data into : S3, Redshift, Elasticsearch, Splunk
+- Automatic scaling
+- Supports many data formats
+- Data conversion from JSON to Parquet / ORC (only for s3)
+- Data transformation through AWS Lambda (ex: CSV => JSON)
+- Supports compression when target is Amazon S3 (GZIP, ZIP and SNAPPY)
+- Only GZIP is the data further loaded into Redshift
+- Pay for the amount of data going through Firehose
+- Spark / KCL do not read from KDF
