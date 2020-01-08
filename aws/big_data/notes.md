@@ -132,7 +132,8 @@ Different ways :
 - 3rd party libraries : spark, log4j..
 - Kinesis Firehose
 - AWS Lambda
-- Kinesis Consumer Enhanced Fan-Out
+
+#### Kinesis Consumer Enhanced Fan-Out
 
       - Kinesis Consumer SDK - GetRecords :
         - Classic Kinesis - Records are polled by consumers from a shard
@@ -150,4 +151,22 @@ Different ways :
           - make sure you provision enough WCU / RCU
           - or use on-demand for DynamoDB
           - Otherwise DynamoDB may slow down KCL
-        - Record processors will process data 
+        - Record processors will process data
+
+#### Kinesis Scaling 
+
+- Adding Shards :
+  - Also called "shard splitting"
+  - Can be used to increase the Stream capacity (1MB/s data in per shard)
+  - Can be used to divide a "hot shard"
+  - The old shard is closed and will be deleted once the data is expired
+
+- Merging Shards :
+  - Decrease the Stream capacity and save costs
+  - Can be used to group two shards with low traffic
+  - Old shards are closed and deleted based on data expiration
+
+- Kinesis Scaling Limitations :
+  - Resharding cannot be done in parallel. Plan capacity in advance
+  - You can only perform one resharding operation at a time and it takes a few seconds
+  - For 1000 shards, it takes 30K seconds (8.3 hours) to double the shards to 2000.
