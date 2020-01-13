@@ -208,3 +208,25 @@ Different ways :
 - Messages are processed in order by the consumer
 - Messages are sent exactly once
 - 5-minute interval de-duplication using "Duplication ID"
+
+### Kinesis Data Streams vs SQS
+
+#### Kinesis Data Streams :
+
+- Data can be consumed many times
+- Data is deleted after the retention period 
+- Ordering of records are preserved (at the shard level) - even during replays
+- Build multiple applications reading from the same stream independently (Pub/Sub)
+- "Streaming MapReduce" querying capability
+- Checkpointing needed to track progress of consumption
+- Shards (capacity) must be provided ahead of time
+
+#### SQS :
+
+- Queue, decouple applications
+- One application per Q
+- Records are deleted after consumption (ack/fail)
+- Messages are processed independently for standard Q
+- Ordering for FIFO queues
+- Capability to "delay" messages
+- Dynamic scaling of load (no-ops)
