@@ -185,3 +185,26 @@ Different ways :
 - Only GZIP is the data further loaded into Redshift
 - Pay for the amount of data going through Firehose
 - Spark / KCL do not read from KDF
+
+
+### AWS SQS - Standard Queue
+
+- Oldest offering (over 10 years old)
+- Fully managed
+- Scales from 1 message per second to 10000s per second
+- Default retention of messages : 4 days, maximum of 14 days   
+- No limit to how many messages can be in the queue
+- Low latency (<10 ms on publish and receive)
+- Horizontal scaling in terms of number of consumers
+- Can have duplicate messages (at least once delivery, occasionaly)
+- Can have out of order messages (best effort ordering)
+- Limitation of 256KB per message sent
+
+### AWS SQS - FIFO Queue
+
+- Newer offering (first in first out)
+- Name of the Q must end in .fifo  
+- Lower throughput (up to 3000 per second with batching, 300/s without)
+- Messages are processed in order by the consumer
+- Messages are sent exactly once
+- 5-minute interval de-duplication using "Duplication ID"

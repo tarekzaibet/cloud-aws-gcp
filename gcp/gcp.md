@@ -299,3 +299,31 @@
 - a set of services for monitoring, logging, and diagnosing apps on GCP and AWS
 
 ## Stackdriver monitoring
+
+- a global service
+- gives informations about performance, uptime and overall health of cloud applications.
+- sends alert with email, sms, slack...
+- includes built in custom metrics, dashboard, global uptime monitoring and alerts.
+- based on collectd
+- can follow a trail  
+
+## Stackdriver logging
+
+- a global service
+- similar to cloudwatch logs
+- create real-time metrics from log data, then alert or chart them on dashboards.
+- send any logs through API
+- pay per project per month
+
+## Stackdriver reporting
+
+- Global
+- Counts, analyses, aggregates, and tracks crashes within a centralised interface
+- Link directly from notifications to error details
+- Exception stack trace parser knows:
+  Java, Python, JavaScript, Ruby, C#, PHP, Go
+
+## Stackdriver trace
+
+- Global
+- Generate reports on demand and get daily auto reports per traced app
