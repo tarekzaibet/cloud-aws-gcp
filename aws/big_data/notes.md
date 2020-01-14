@@ -241,4 +241,83 @@ Different ways :
   - Device Gateway (sends messages to IoT message broker and exchange informations with the IoT thing)
   - IoT Message Broker (sends messages to the IoT Rules Engine and exchange informations with the Device Shadow)
    - IoT Rules Engine (send informations to Kinesis, SQS, Lambda..)
-   - Device Shadow (basically a replica of your device in AWS Cloud which allows your to continue development on your device when the real device in unavailable ) 
+   - Device Shadow (basically a replica of your device in AWS Cloud which allows your to continue development on your device when the real device in unavailable )
+
+#### IoT Components Deep Dive
+
+##### IoT Device Gateway
+
+- Serves as the entry point for IoT devices connecting to AWS
+- Allows devices to securely and efficiently communicate with AWS IoT
+- Supports the MQTT, WebSockets and HTTP 1.1 protocols
+- Fully managed and scales automatically to support over a billion devices
+- No need to manage any infrastructure
+
+##### IoT Thing Registry (IAM of IoT)
+
+- All connected IoT devices are represented in the AWS IoT registry
+- Organizes the resources associated with each device in the AWS Cloud
+- Each device gets a unique ID
+- Supports metadata for each device
+- Can create x.509 certificate to help IoT devices connect to AWS
+- IoT Groups : group devices together and apply permissions to the group
+
+##### IoT Message Broker
+
+- Pub/Sub messaging pattern with low latency
+- Devices can communicate with one another this way
+- Messages sent using the MQTT, WebSockets or HTTP 1.1 protocols
+- Messages are published into topics (just like SNS)
+- Message Broker forwards messages to all clients connected to the topic
+
+##### Rules Engine
+
+- Rules are defined on the MQTT topics
+- Rules = when it's triggered , Action = what it does
+- Rules use cases :
+  - Augment of filter data received from a device
+  - Write data received from a device to DynamoDB database
+  - Save a file to S3
+  - Send a push notification to all users using SNS
+  - Publish data to a SQS Queue
+  - Invoke a lambda function to extract data
+  - Process messages from a large number of devices using Amazon Kinesis
+  - Send data to the Amazon Elasticsearch Service
+  - Capture a CloudWatch metric and change a CloudWatch alarm
+  - Send the data from an MQTT message to Amazon ML to make predictions based on an Amazon ML model
+- Rules need IAM Roles to perform their actions
+
+
+##### Device Shadow
+
+- JSON document representing the state of a connected Thing
+- We can set the state to a different desired date
+- The IoT thing will retrieve the state when online and adapt
+
+##### Authentication
+
+- 3 possible authentication methods for things :
+  - create x.509 certificates and load them securely onto things
+  - AWS SigV4
+  - Custom tokens with Custom authorizers
+
+##### Authoization
+- AWS IoT policies :
+  - attached to x.509 certificates or Cognito identities
+  - Able to revoke any device at any time
+  - IoT Policies are JSON documents
+  - Can be attached to groups instead of individual Things
+
+- IAM Policies :
+  - Attached to users, group or roles
+  - Used for controlling IoT AWS APIs
+
+##### IoT Greengrass
+- brings the compute layer to the device directly
+- you can execute AWS Lambda functions on the devices:
+  - Pre-process the data
+  - Execute predictions based on ML modes
+  - Keep device data in sync
+  - Communicate between local devices
+- Operate offline
+- Deploy function from the cloud directly to the devices 
