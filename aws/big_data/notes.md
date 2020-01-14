@@ -214,7 +214,7 @@ Different ways :
 #### Kinesis Data Streams :
 
 - Data can be consumed many times
-- Data is deleted after the retention period 
+- Data is deleted after the retention period
 - Ordering of records are preserved (at the shard level) - even during replays
 - Build multiple applications reading from the same stream independently (Pub/Sub)
 - "Streaming MapReduce" querying capability
@@ -230,3 +230,15 @@ Different ways :
 - Ordering for FIFO queues
 - Capability to "delay" messages
 - Dynamic scaling of load (no-ops)
+
+### IoT
+
+- We deploy IoT devices called "Things"
+- We configure and retrieve data from these things
+- The components of AWS IoT Cloud are :
+  - IoT thing (device)
+  - Thing Registry (basically like IAM for IoT)
+  - Device Gateway (sends messages to IoT message broker and exchange informations with the IoT thing)
+  - IoT Message Broker (sends messages to the IoT Rules Engine and exchange informations with the Device Shadow)
+   - IoT Rules Engine (send informations to Kinesis, SQS, Lambda..)
+   - Device Shadow (basically a replica of your device in AWS Cloud which allows your to continue development on your device when the real device in unavailable ) 
