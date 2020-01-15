@@ -352,4 +352,18 @@ Different ways :
 - Convert your DB Schema from one engine to another
 - Example OLTP : (SQL server or Oracle) to MySQL, PostgreSQL, Aurora
 - Example OLAP : (Teradata or Oracle) to Amazon Redshift
-- You can use AWS SCT to create AWS DMS endpoints and tasks 
+- You can use AWS SCT to create AWS DMS endpoints and tasks
+
+### Direct Connect
+
+- Provides a dedicated private connection from a remote network to your VPC
+- Can setup multiple 1 Gbps or 10 Gbps dedicated network connections
+- You need to setup a Virtual Private Gateway on your VPC
+- Access public resources (S3) and private (EC2) on same connection
+- Use Cases :
+  - Increase bandwidth throughput - working with large data sets - lower costs
+  - More consistent network experience - applications using real-time data feeds
+  - Hybrid Environment (on prem + cloud)
+  - Enhanced security (private connection)
+- Supports both IPv4 and IPv6
+- High-availability : two DC as failover or use Site-to-Site VPN as a failover 
