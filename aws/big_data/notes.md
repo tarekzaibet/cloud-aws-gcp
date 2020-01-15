@@ -187,7 +187,7 @@ Different ways :
 - Spark / KCL do not read from KDF
 
 
-### AWS SQS - Standard Queue
+## AWS SQS - Standard Queue
 
 - Oldest offering (over 10 years old)
 - Fully managed
@@ -200,7 +200,7 @@ Different ways :
 - Can have out of order messages (best effort ordering)
 - Limitation of 256KB per message sent
 
-### AWS SQS - FIFO Queue
+## AWS SQS - FIFO Queue
 
 - Newer offering (first in first out)
 - Name of the Q must end in .fifo  
@@ -209,9 +209,9 @@ Different ways :
 - Messages are sent exactly once
 - 5-minute interval de-duplication using "Duplication ID"
 
-### Kinesis Data Streams vs SQS
+## Kinesis Data Streams vs SQS
 
-#### Kinesis Data Streams :
+### Kinesis Data Streams :
 
 - Data can be consumed many times
 - Data is deleted after the retention period
@@ -221,7 +221,7 @@ Different ways :
 - Checkpointing needed to track progress of consumption
 - Shards (capacity) must be provided ahead of time
 
-#### SQS :
+### SQS :
 
 - Queue, decouple applications
 - One application per Q
@@ -231,7 +231,7 @@ Different ways :
 - Capability to "delay" messages
 - Dynamic scaling of load (no-ops)
 
-### IoT
+## IoT
 
 - We deploy IoT devices called "Things"
 - We configure and retrieve data from these things
@@ -243,9 +243,9 @@ Different ways :
    - IoT Rules Engine (send informations to Kinesis, SQS, Lambda..)
    - Device Shadow (basically a replica of your device in AWS Cloud which allows your to continue development on your device when the real device in unavailable )
 
-#### IoT Components Deep Dive
+### IoT Components Deep Dive
 
-##### IoT Device Gateway
+#### IoT Device Gateway
 
 - Serves as the entry point for IoT devices connecting to AWS
 - Allows devices to securely and efficiently communicate with AWS IoT
@@ -253,7 +253,7 @@ Different ways :
 - Fully managed and scales automatically to support over a billion devices
 - No need to manage any infrastructure
 
-##### IoT Thing Registry (IAM of IoT)
+#### IoT Thing Registry (IAM of IoT)
 
 - All connected IoT devices are represented in the AWS IoT registry
 - Organizes the resources associated with each device in the AWS Cloud
@@ -262,7 +262,7 @@ Different ways :
 - Can create x.509 certificate to help IoT devices connect to AWS
 - IoT Groups : group devices together and apply permissions to the group
 
-##### IoT Message Broker
+#### IoT Message Broker
 
 - Pub/Sub messaging pattern with low latency
 - Devices can communicate with one another this way
@@ -270,7 +270,7 @@ Different ways :
 - Messages are published into topics (just like SNS)
 - Message Broker forwards messages to all clients connected to the topic
 
-##### Rules Engine
+#### Rules Engine
 
 - Rules are defined on the MQTT topics
 - Rules = when it's triggered , Action = what it does
@@ -288,20 +288,20 @@ Different ways :
 - Rules need IAM Roles to perform their actions
 
 
-##### Device Shadow
+#### Device Shadow
 
 - JSON document representing the state of a connected Thing
 - We can set the state to a different desired date
 - The IoT thing will retrieve the state when online and adapt
 
-##### Authentication
+#### Authentication
 
 - 3 possible authentication methods for things :
   - create x.509 certificates and load them securely onto things
   - AWS SigV4
   - Custom tokens with Custom authorizers
 
-##### Authoization
+#### Authoization
 - AWS IoT policies :
   - attached to x.509 certificates or Cognito identities
   - Able to revoke any device at any time
@@ -312,7 +312,7 @@ Different ways :
   - Attached to users, group or roles
   - Used for controlling IoT AWS APIs
 
-##### IoT Greengrass
+#### IoT Greengrass
 - brings the compute layer to the device directly
 - you can execute AWS Lambda functions on the devices:
   - Pre-process the data
@@ -322,7 +322,7 @@ Different ways :
 - Operate offline
 - Deploy function from the cloud directly to the devices
 
-### Database Migration Service - DMS
+## Database Migration Service - DMS
 
 - quick and secure way to migrate databases to AWS. it's resilient and self healing
 - during the migration, the source database remains available
@@ -330,14 +330,14 @@ Different ways :
 - has continuous data replication using CDC (change data capture)
 - you need to create an EC2 instance to perform replication tasks
 
-#### DMS Sources and Targets
-##### Sources
+### DMS Sources and Targets
+#### Sources
 - On-prem and EC2 instances db : Oracle, MySQL, MariaDB, SAP, DB2..
 - Azure SQL DB
 - Amazon RDS : including Aurora
 - Amazon S3
 
-##### Targets
+#### Targets
 - On-prem and EC2 instances db : Oracle, MySQL, MariaDB, SAP, DB2..
 - RDS
 - Redshift
@@ -347,14 +347,14 @@ Different ways :
 - Kinesis Data Streams
 - DocumentDB
 
-#### AWS Schema Conversion Tool (SCT)
+### AWS Schema Conversion Tool (SCT)
 
 - Convert your DB Schema from one engine to another
 - Example OLTP : (SQL server or Oracle) to MySQL, PostgreSQL, Aurora
 - Example OLAP : (Teradata or Oracle) to Amazon Redshift
 - You can use AWS SCT to create AWS DMS endpoints and tasks
 
-### Direct Connect
+## Direct Connect
 
 - Provides a dedicated private connection from a remote network to your VPC
 - Can setup multiple 1 Gbps or 10 Gbps dedicated network connections
@@ -366,4 +366,39 @@ Different ways :
   - Hybrid Environment (on prem + cloud)
   - Enhanced security (private connection)
 - Supports both IPv4 and IPv6
-- High-availability : two DC as failover or use Site-to-Site VPN as a failover 
+- High-availability : two DC as failover or use Site-to-Site VPN as a failover
+
+## Snowball
+
+- Physical data transport solution that helps moving TBs or PBs of data in or out of AWS
+- Alternative to moving data over the network(and paying network fees)
+- Secure, tamper resistant, uses KMS 256 bit encryption
+- Tracking using SNS and text messages, E-ink shipping label
+- Pay per data transfer job
+- Use cases : large data cloud migrations, DC decommission, disaster recovery
+- If it take more than a week to transfer over the network, use Snowball devices
+
+### Snowball Process
+1 - Request snowball devices from the AWS console for delivery
+2 - Install the snowball client on your servers
+3 - Connect the snowball to your servers and copy files using the client
+4 - Ship back the device when you're done (goes to the right AWS facility)
+5 - Data will be loaded into an S3 bucket
+6 - Snowball is completely wiped
+7 - Tracking is done using SNS, text messages and the AWS console
+
+### Snowball Edge
+- Snowball Edges add computational capability to the devices
+- 100 TB capacity with either :
+  - storage optimized - 24 vCPU
+  - compute optimized - 52 vCPU & optional GPU
+- Supports a custom EC2 AMI so you can perform processing on the go
+- Supports custom Lambda function
+- Very useful to pre-process the data while moving
+- Use case : data migration, image collation, IoT capture, machine learning
+
+### AWS Snowmobile
+
+- Best if you transfer more than 10 PB
+- Each Snowmobile has 100 PB of capacity
+- Transfer exabytes of data (1 EB = 1000 PB = 1000000 TBS)
