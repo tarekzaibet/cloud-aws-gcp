@@ -320,4 +320,36 @@ Different ways :
   - Keep device data in sync
   - Communicate between local devices
 - Operate offline
-- Deploy function from the cloud directly to the devices 
+- Deploy function from the cloud directly to the devices
+
+### Database Migration Service - DMS
+
+- quick and secure way to migrate databases to AWS. it's resilient and self healing
+- during the migration, the source database remains available
+- supports homogenous (mysql to mysql) and heterogenous migrations (mysql to aurora)
+- has continuous data replication using CDC (change data capture)
+- you need to create an EC2 instance to perform replication tasks
+
+#### DMS Sources and Targets
+##### Sources
+- On-prem and EC2 instances db : Oracle, MySQL, MariaDB, SAP, DB2..
+- Azure SQL DB
+- Amazon RDS : including Aurora
+- Amazon S3
+
+##### Targets
+- On-prem and EC2 instances db : Oracle, MySQL, MariaDB, SAP, DB2..
+- RDS
+- Redshift
+- DynamoDB
+- S3
+- Elasticsearch
+- Kinesis Data Streams
+- DocumentDB
+
+#### AWS Schema Conversion Tool (SCT)
+
+- Convert your DB Schema from one engine to another
+- Example OLTP : (SQL server or Oracle) to MySQL, PostgreSQL, Aurora
+- Example OLAP : (Teradata or Oracle) to Amazon Redshift
+- You can use AWS SCT to create AWS DMS endpoints and tasks 
