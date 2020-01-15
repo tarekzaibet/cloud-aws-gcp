@@ -402,3 +402,5 @@ Different ways :
 - Best if you transfer more than 10 PB
 - Each Snowmobile has 100 PB of capacity
 - Transfer exabytes of data (1 EB = 1000 PB = 1000000 TBS)
+
+# 2 - Storage 
