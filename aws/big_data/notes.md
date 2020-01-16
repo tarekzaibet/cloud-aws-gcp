@@ -474,10 +474,19 @@ Different ways :
   - standard (3 to 5 hours)
   - bulk (5 to 12 hours)
 
-#### S3 Lifecycle Rules
+### S3 Lifecycle Rules
 
 - Rules to move data between different tiers, to save storage cost
 - example : Standard to IA to Glacier
 - Transition actions : defines when objects are transitioned to another storage class.
 - Expiration actions : configure objects to expire after a certain time period
-- Move to glacier is good for backup, long term retention, regulatory needs 
+- Move to glacier is good for backup, long term retention, regulatory needs
+
+### S3 Cross Region Replication
+
+- must enable versioning (source & destination)
+- buckets must be in different AWS regions
+- can be in different accounts
+- copying is async
+- must give right permissions to S3
+- use cases : compliance, lower latency, replication across accounts 
