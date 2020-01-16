@@ -489,4 +489,12 @@ Different ways :
 - can be in different accounts
 - copying is async
 - must give right permissions to S3
-- use cases : compliance, lower latency, replication across accounts 
+- use cases : compliance, lower latency, replication across accounts
+
+### S3 - Etag
+
+- verify if a file is already uploaded to S3
+- with this you make sure that the file is exactly the same
+- for uploads < 5GB, it's a MD5 hash
+- for multi-part its more complicated hash
+- with Etag you ensure the integrity of files  
