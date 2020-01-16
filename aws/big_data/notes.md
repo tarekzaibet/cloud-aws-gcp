@@ -403,4 +403,73 @@ Different ways :
 - Each Snowmobile has 100 PB of capacity
 - Transfer exabytes of data (1 EB = 1000 PB = 1000000 TBS)
 
-# 2 - Storage 
+# 2 - Storage
+
+## S3
+
+- stores objects in buckets
+- buckets are unique globally
+- buckets are at the region level
+
+### Objects
+
+- objects have a key. key = full path
+- inside a bucket there is no concept of "directories"
+- keys with slashes : bucket/folder/file
+- object values = content of the body :
+  - max object size is 5 TB
+  - if size > 5GB, we need to use "multi-part upload"
+- objects have metadata (list of text key / value paris - system or user metadata)
+- tags (unicode key/value pair) useful for security and lifecycle
+- version ID (if versioning enabled )
+
+### Consistency model
+- Read after write consistency for PUTS of new objects
+- Eventual consistency for DELETES and PUTS of existing objects
+
+### Storage Tiers
+
+#### S3 - Standard - General Purpose
+- High durability (11 9's) of objects across mulitple AZ
+- 99,99% availability over a given year
+- Sustain 2 concurrent facility failures
+- use cases : big data analytics, mobile & gaming, content distribution
+
+#### S3 - IA
+- when data is less frequently accessed, but requires quick access
+- high durability (11 9's) of objects across mulitple AZ
+- 99,99% availability  
+- low cost compared to S3 standard
+- Sustain 2 concurrent facility failures  
+
+#### S3 - One Zone - IA
+
+- Same as IA but stored in one AZ
+- high durability (11 9's) in a single AZ
+- 99,95% availability
+- supports SSL for data in transit and encryption at rest
+- low cost compared to IA (by 20%)
+- low latency and high throughput performance
+
+#### S3 intelligent tiering
+
+- same low latency and high throughput performance of S3 standard
+- small monthly monitoring and auto-tiering fee
+- automatically moves objects between two access tiers based on changing access patterns
+- High durability (11 9's) of objects across mulitple AZ
+- 99,99% availability over a given year
+- Resilient against events that impact an AZ
+
+#### S3 Glacier
+
+- low cost object storage meant for archiving / backup 
+- data is retained for the long term (10s of years)
+- alternative to on-premise magentic tape storage
+- average annual durability is (11 9's)
+- cost per storage per month (0.004 $/ GB) + retrival cost
+- each item in glacier is called "Archive" (up to 40TB)
+- Archives are stored in "Vaults"
+- 3 retrival options :
+  - expedited (1 to 5 minutes retrival)
+  - standard (3 to 5 hours)
+  - bulk (5 to 12 hours)
