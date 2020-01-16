@@ -462,7 +462,7 @@ Different ways :
 
 #### S3 Glacier
 
-- low cost object storage meant for archiving / backup 
+- low cost object storage meant for archiving / backup
 - data is retained for the long term (10s of years)
 - alternative to on-premise magentic tape storage
 - average annual durability is (11 9's)
@@ -473,3 +473,11 @@ Different ways :
   - expedited (1 to 5 minutes retrival)
   - standard (3 to 5 hours)
   - bulk (5 to 12 hours)
+
+#### S3 Lifecycle Rules
+
+- Rules to move data between different tiers, to save storage cost
+- example : Standard to IA to Glacier
+- Transition actions : defines when objects are transitioned to another storage class.
+- Expiration actions : configure objects to expire after a certain time period
+- Move to glacier is good for backup, long term retention, regulatory needs 
