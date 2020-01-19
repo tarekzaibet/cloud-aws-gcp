@@ -498,3 +498,16 @@ Different ways :
 - for uploads < 5GB, it's a MD5 hash
 - for multi-part its more complicated hash
 - with Etag you ensure the integrity of files  
+
+### S3 Performance
+
+- When we had > 100 transaction per second (TPS), S3 performance cloud degrade
+- what happens is that each object goes to an S3 partition and for the best performance, we want the highest partition distribution
+- historically, it was recommended to have random characters in front of your key name to optimise performance
+- not in the exam  !:
+  - since july 2018 we can scale up to 3500 RPS for PUT and 5500 RPS for GET for each prefix
+  - " this S3 request rate performance increase removes any previous guidance to randomize object prefixes to achieve faster performance"
+- upload fastly large file using multipart upload for files > 5GB
+- use cloudfront to cache S3 objects and to improve reads
+- S3 transfer acceleration
+- if using SSE-KMS encryption you may be limited to your AWS limits for KMS usage (100-1000s downloads / uploads per second )
