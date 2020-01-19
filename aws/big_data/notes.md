@@ -612,4 +612,47 @@ Different ways :
 - Vault Lock Policy is a policy you lock, for regulatory and compliance requirements
    - the policy is immutable, it can never be changed (thats why is called lock)
    - example : forbid the delete of an archive if less than 2 years olds
-   - example : implement WORM (write once read many) 
+   - example : implement WORM (write once read many)
+
+## DynamoDB
+
+- fully managed, high available nosql database with replication across 3 AZ
+- scales to massive workloads, distributed database
+- 100s of TB of storage
+- Millions of requests per seconds and trillions of row
+- fast and consistence in performance (low latency on retrieval)
+- integrated with IAM for security, authorization and administration
+- enables event driven programming with DynamoDB streams
+- Low cost and auto scaling capabilities
+
+- made of tables
+- each table has a primary key (must be decided at creation time)
+- each table can have an infinite number of items (=rows)
+- each item has attributes
+- maximum size of item is 400 KB
+- Supported Data Types :  
+  - Scaler : string, number, binary, bool, null
+  - Document types : List, Map
+  - Set Types : String Set, Number Set, Binary Set
+
+- DynamoDB in big data
+  - use cases : mobile apps, gaming, live voting, Log ingestion, web session management..
+  - anti pattern :
+    - larga data with low i/o use S3
+    - BLOG data : store data in s3 & metdata in dynamodb
+    - joins or complex transactions
+    - app that uses RDS 
+
+### DynamoDB - Primary Keys
+- Option 1 : Partition Key Only (HASH)
+  - partition key must be unique for each item
+  - partition key must be "diverse" so that the data is distributed
+  - example : user_id for a users table
+
+- Option 2 : Partition Key + Sort Key
+  - The combination must be unique
+  - Data is grouped by partition key
+  - Sort key = range key
+  - example : users-games table :
+    - user_id for the partition key
+    - game_id for the sort key
