@@ -555,3 +555,49 @@ Different ways :
 - you're free to use the endpoint you want, but HTTPS is recommended
 - HTTPS in mandatory for SSE-C
 - Encryption in flight is also called SSL/TLS
+
+### S3 Security
+
+#### S3 CORS
+- if your request data from another website, you need to enable CORS
+- CORS allows you to limit the number of websites that can request your files in S3 (and limit your costs)
+
+#### S3 Access Logs
+- you want to log all access to S3 buckets
+- any request made to S3, from any account, authorized or denied, will be logged into another S3 bucket
+- that data can be analyzed using data analysis tools
+- or amazon athena
+
+#### Overall Security
+- User based :  
+  - IAM policies - which API calls should be allowed for a speicifc user from IAM console
+  - Resource Based :
+    - Bucket policies : bucket wide rules from the S3 console
+    - Objects ACL : finer grain  
+    - Bucket ACL : less common
+
+#### S3 Bucket Policies
+- JSON based policies :
+  - Resources : buckets and objects
+  - Actions : set of API to Allow or Deny
+  - Effect : Allow / Deny
+  - Principal : the account or user to apply the policy to
+- Use S3 bucket policy to :
+  - Grant public access to the bucket
+  - Force objects to be encrypted at upload
+  - Grant access to another account (Cross Account)
+
+#### S3 Default Encryption vs Bucket Policies
+- the old method was to use a bucket policy and refuse any HTTP command with the correct headers
+- the new way is to use the "default encryption" option in S3
+- Note : Bucket policies are evaluated before "default encryption"
+
+#### S3 Security Other
+- Networking :
+  - supports VPC endpoints
+- Logging and audit :
+  - S3 access logs can be stored in other S3 bucket
+  - API calls can be logged in AWS CloudTrail
+- User Security :
+  - MFA
+  - Signed URLs
