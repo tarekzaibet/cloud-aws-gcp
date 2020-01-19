@@ -601,3 +601,15 @@ Different ways :
 - User Security :
   - MFA
   - Signed URLs
+
+#### Glacier - Vault Policies & Vault Lock  
+- Vault = collection of archives
+- Each vault has :
+  - ONE vault access policy
+  - ONE vault lock policy
+- Vault Policies are written in JSON
+- Vault Access Policy is similar to bucket policy (restrict user / account permission)
+- Vault Lock Policy is a policy you lock, for regulatory and compliance requirements
+   - the policy is immutable, it can never be changed (thats why is called lock)
+   - example : forbid the delete of an archive if less than 2 years olds
+   - example : implement WORM (write once read many) 
