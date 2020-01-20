@@ -701,3 +701,14 @@ Different ways :
   - exponential back-off when exception is encountered
   - distribute partition keys as much as possible
   - if RCU issue, we can use DynamoDB Accelerator (DAX)
+
+### DynamoDB - Partitions
+- you start with one partition
+- each partition :
+  - max of 3000 RCU / 1000 WCU
+  - max of 10 GB
+- to compute the number of partitions :
+  - by capacity : (TOTAL RCU/3000) + (TOTAL WCU /1000)
+  - by size : Total Size / 10 GB
+  - Total partitions = CEILING(MAX(Capacity,Size))
+- WCU and RCU are spread equally between partitions 
