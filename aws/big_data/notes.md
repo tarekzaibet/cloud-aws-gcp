@@ -711,4 +711,66 @@ Different ways :
   - by capacity : (TOTAL RCU/3000) + (TOTAL WCU /1000)
   - by size : Total Size / 10 GB
   - Total partitions = CEILING(MAX(Capacity,Size))
-- WCU and RCU are spread equally between partitions 
+- WCU and RCU are spread equally between partitions
+
+### DynamoDB - API
+
+#### Writing Data
+- PutItem : writes data to dynamodb, by adding or full repalce
+- UpdateItem : update data in dynamodb, partial updates or attributes
+- Conditional Writes :
+  - Accept write / update only if a condition is met
+  - Helps with concurrent access to items
+  - No performance impact
+
+#### Deleting Data
+- DeleteItem
+  - Delete an individual row
+  - Ability to perform a conditional delete
+- DeleteTable
+  - Delete a whole table and all its items
+  - Much quicker deletion than calling DeleteItem on all items
+
+#### Batching Writes
+- BatchWriteItem :
+  - Up to 25 PuttItem and/or DeleteItem in one call
+  - Up to 16 MB of data written
+  - Up to 400KB of data per item
+- Batching allows you to save latency by reducing the number of API calls done against DynamoDB
+- Operations are done in parallel for better efficiency
+- It's possible for part of a batch to fail, in which case we have the try the failed items (using exponential back-off algorithm)
+
+#### Reading Data
+- GetItem :
+  - read based on Primary key
+  - primary key = HASH or HASH-RANGE
+  - eventually consistent read by default
+  - option to use strongly reads (more RCU - might take longer)
+  - ProjectionExpression can be specified to include only certain attributes
+
+- BatchGetItem :
+  - Up to 100 items
+  - Up to 16 MB of data
+  - Items are retrieved in parallel to minimize latency
+
+#### DynamoDB - Query
+- Query returns items based on:
+  - PartitionKey value (must be = operator)
+  - SortKey - optional
+  - FilterExpression to further filer (client side filtering)
+- Returns :
+  - Up to 1 MB of data
+  - Or number of items specified in Limit
+- Able to do pagination on the results
+- Can query table, a local secondary index or a global secondary index
+
+#### Scan
+- Scan the entire table and then filter out data
+- Returns up to 1 MB of data - use pagination to keep on reading
+- Consumers a lot of RCU
+- Limit impact using Limit or reduce the size of the result and pause 
+- For faster performance, use parallel scans :  
+  - Multiple instances scan multiple partitions at the same time
+  - Increases the throughput and RCU consumed
+  - Limit the impact of parallel scans just like you would for Scans
+- Can use a ProjectionExpression + FilterExpression (no change to RCU)
