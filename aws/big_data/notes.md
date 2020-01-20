@@ -641,7 +641,7 @@ Different ways :
     - larga data with low i/o use S3
     - BLOG data : store data in s3 & metdata in dynamodb
     - joins or complex transactions
-    - app that uses RDS 
+    - app that uses RDS
 
 ### DynamoDB - Primary Keys
 - Option 1 : Partition Key Only (HASH)
@@ -656,3 +656,48 @@ Different ways :
   - example : users-games table :
     - user_id for the partition key
     - game_id for the sort key
+
+### DynamDB - RCU & WCU
+
+- Table must have provisioned read and write capacity units
+- Read Capacity Units (RCU) : throughput for reads
+- Write Capacity Units (WCU) : throughput for writes
+- Option to setup auto-scaling of throughput to meet demand
+- Throughput can be exceeded temporarily using "burst credit"
+- if burst credit are empty, you'll get a "ProvisionedThroughputException"
+- it's then advised to do an exponential back-off retry
+
+#### DynamoDB - WCU
+- 1 WCU = 1 Write/second for an item up to 1KB
+- if the items are larger than 1 KB, more  WCU are consumed
+- example 1 : we write 10 objects per second of 2 KB
+  we need 2 * 10 = 20 WCU
+- example 2 : we write 6 objects per second of 4.5 KB
+  we need 6 * 5 = 30 WCU (4.5 get rounded to upper KB)
+- example 3 = we write 120 objects per minute of 2 KB each
+  we need 120/60 * 2 = 4WCU
+- number of objects per second * size of object
+
+#### DynamoDB - RCU
+- 1 RCU = 1 strongly consistent read per second or 2 eventually consistent reads per second, for an item up to 4 KB in size
+- if the items are larger than 4 KB, more RCU are consumed
+- example 1 :  10 strongly consistent reads per seconds of 4 KB each
+  - we need 10 * 4 KB / 4 KB = 10 RCU
+- example 2 : 16 eventually consistent reads per seconds of 12 KB each
+  - we need (16 / 2) * (12 / 4) = 24 RCU
+- example 3 : 10 strongly consistent reads per seconds of 6 KB each
+  - we need 10 * 8 KB / 4 = 20 RCU
+- RCU for consistent reads :
+  - number of consistent reads * (size of object rounded up to mult(4) if needed / 4 )
+- RCU for eventual reads :
+  - ( number of consistent reads / 2 ) * (size of object rounded up to mult(4) if needed / 4)
+
+#### DynamoDB - Throttling
+- if we exceed our RCU or WCU we get "ProvisionedThroughputException"
+- reasons :
+  - hot keys/partitions : one partition key is being read too many times
+  - very large items : remember RCU and WCU depends on size of items
+- solutions :
+  - exponential back-off when exception is encountered
+  - distribute partition keys as much as possible
+  - if RCU issue, we can use DynamoDB Accelerator (DAX)
