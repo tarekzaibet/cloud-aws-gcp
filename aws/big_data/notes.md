@@ -774,3 +774,12 @@ Different ways :
   - Increases the throughput and RCU consumed
   - Limit the impact of parallel scans just like you would for Scans
 - Can use a ProjectionExpression + FilterExpression (no change to RCU)
+
+### LSI & GSI 
+
+#### Local Secondary Index (LSI)
+- Alternate range key for your table, local to the hash key 
+- Up yo five local secondary indexes per table 
+- The sort key consists of exactly one scalar attribute 
+- The attribute that you choose must be a scalar string, number of binary 
+- LSI must be defined at table creation
