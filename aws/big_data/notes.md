@@ -849,3 +849,9 @@ Different ways :
   - multi region, fully replciated, high performance 
 - DMS can be used to migrate to dynamoDB 
 - you can launch a local dynamodb on your computer for development purposes 
+
+### Elasticahe 
+
+ - dont come often in exam 
+ - managed redis or memecached 
+ - in memory db with high performance and low latency 
