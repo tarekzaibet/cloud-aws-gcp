@@ -794,3 +794,13 @@ Different ways :
   - can use all attributes from main table (ALL)
 - we must define RCU / WCU for the index 
 - we can modify GSI after table creation (not LSI)
+
+### DynamoDB - DAX 
+
+- it's dynamodb accelerator 
+- secure (encryption at rest with KMS, VPC, IAM, CloudTrail..)
+- Multi AZ (3 node minimum recommended for production)
+- Up to 10 node in the cluster 
+- 5 minutes TTL for cache by default 
+- Micro second latency for cached reads & queries 
+- Seamless cache for DynamoDB, no application re-write 
