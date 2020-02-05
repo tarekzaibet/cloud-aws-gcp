@@ -822,3 +822,15 @@ Different ways :
 - need to add "Kinesis Adapter" library 
 - the interface and programming is exactly the same as kinesis streams 
 - alternative to use aws lambda 
+
+### DynamoDB TTL 
+
+- automatically delete an item after an expiry date /time 
+- provided with no extra cost, no WCU or RCU are used 
+- a background task operated by dyanmodb itself 
+- helps reduce storage and manage the table size over time 
+- heps adhere to regulatory norms 
+- ttl is enabled per row (you define a ttl column and add a date there)
+- typically delete expired items with 46 hours of expiration 
+- deleted items due to TTL are also deleted in GSI / LSI 
+- Streams can help recover expired items 
