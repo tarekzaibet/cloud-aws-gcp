@@ -804,3 +804,21 @@ Different ways :
 - 5 minutes TTL for cache by default 
 - Micro second latency for cached reads & queries 
 - Seamless cache for DynamoDB, no application re-write 
+
+### DynamoDB - Streams 
+
+- Changes in dynamo (create, update, delete) can be stored in a DynamoDB Stream 
+- the stream can be read by aws lambda and then we can do : 
+  - react to changes in real time (welcome message to new users)
+  - create derivative tables / views 
+  - insert into elasticsearch 
+- can implement Cross Region Replication using Streams 
+- Stream has 24 hours of data retention 
+- Configurable batch size (up to 1000 rows, 6 MB)
+
+#### DynamoDB Steams - Kinesis Adapter 
+
+- you can use kinesis KCL to consumer from dynamodb streams 
+- need to add "Kinesis Adapter" library 
+- the interface and programming is exactly the same as kinesis streams 
+- alternative to use aws lambda 
