@@ -834,3 +834,18 @@ Different ways :
 - typically delete expired items with 46 hours of expiration 
 - deleted items due to TTL are also deleted in GSI / LSI 
 - Streams can help recover expired items 
+
+### DynamoDB - Security and other features 
+
+- Security : 
+  - VPC endpoints available to access DynamoDB without internet 
+  - Acces controlled by IAM 
+  - encryption at rest using KMS
+  - encryption ins transit using ssl/tls 
+- Backup and restore feature available 
+  - point in time restore like RDS 
+  - no performance impact 
+- Global Tables 
+  - multi region, fully replciated, high performance 
+- DMS can be used to migrate to dynamoDB 
+- you can launch a local dynamodb on your computer for development purposes 
