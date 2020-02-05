@@ -783,3 +783,14 @@ Different ways :
 - The sort key consists of exactly one scalar attribute 
 - The attribute that you choose must be a scalar string, number of binary 
 - LSI must be defined at table creation
+
+#### Global Secondary Indes (GSI)
+
+- Used to speed up queries on non-key attributes 
+- Consists of partition key and optional sort key 
+- The index created is a new "table" and we can project attributes on it 
+  - the partition key and sort key of the original table are always projected (keys_only)
+  - can specifiy extra attributes to project (INCLUDE)
+  - can use all attributes from main table (ALL)
+- we must define RCU / WCU for the index 
+- we can modify GSI after table creation (not LSI)
