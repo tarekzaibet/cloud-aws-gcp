@@ -1022,7 +1022,7 @@ Different ways :
  - Task node = Runs tasks, does not host data (good use of spot instances)
  - Transient vs Long-Running Cluster (spot vs reserved instances)
  - Connect directly to master to run jobs
- - Submit ordered steps via the console 
+ - Submit ordered steps via the console
  - Like Cloudera
 
 ### EMR / AWS integration
@@ -1033,3 +1033,26 @@ Different ways :
 - AWS IAM to configure permissions
 - AWS CloudTrail to audit requests made to the services
 - AWS Data Pipeline to schedule and start your clusters
+
+### EMR Storage
+- HDFS
+- each file in HDFS is stored as blocks and it's distributed across the entire Hadoop cluster
+- if you have a large file in HDFS the file will be split in blocks and are going to be stored in multiple places fo backup purposes.
+- by default a block is 128 Megabytes
+- HDFS is epehmeral, good for caching however
+- terminate cluster = loss of data
+
+- EMRFS : access S3 as if it were HDFS
+  - EMRFS Consistent View - optional for S3 consistency (EMR will use a dynamodb database to sotre metadata and track consistency with S3)
+  - uses dynamodb to track consistency
+- Local file system (can be used to expend capacity sotrage in a cluster)
+- EBS for HDFS (can be used to expend capacity sotrage in a cluster and enhance performance)
+
+### EMR promises
+- Charges by the hour (plus EC2 charges)
+- Provisions new node if a core node fails
+- Can add and remove tasks nodes on the fly
+- Can resize a running cluster's core nodes
+
+### What's Hadoop ?
+- Consists of MapReduce, YARN and HDFS (these contain the librairies and utilities required for other Hadoop modules and provides the underlying file system and operating system level abstractions that we need it also contains all the jar files and scripts that we need to start hadoop itself)
