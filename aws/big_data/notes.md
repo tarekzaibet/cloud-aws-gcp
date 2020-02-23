@@ -1006,4 +1006,30 @@ Different ways :
 ### Glue Anti Pattern
 - Steaming data (glue is batch oriented, minimum 5 minute intervals)
 - Multiple ETL engines
-- NoSQL databases 
+- NoSQL databases
+
+## Amazon EMR
+
+- EMR = Elastic MapReduce
+- Managed Hadoop framework on EC2 instances
+- Includes Spark, HBase, Presto, Flink, Hive & more
+- EMR Notebooks
+- Several integration points with AWS
+- an EMR cluster is a set of EC2 instances
+ - 1 instance = 1 node
+ - Master node = Manages the cluster (single EC2 instance)
+ - Core node = hosts HDFS data and run tasks (can be scaled up and down but with some risks)
+ - Task node = Runs tasks, does not host data (good use of spot instances)
+ - Transient vs Long-Running Cluster (spot vs reserved instances)
+ - Connect directly to master to run jobs
+ - Submit ordered steps via the console 
+ - Like Cloudera
+
+### EMR / AWS integration
+- EC2 for the instances that comprise the nodes in the Cluster
+- Amazon VPC to configure the virtual network in which you launch your instances
+- Amazon S3 to store input and output data
+- Amazon CloudWatch to monitor cluster performance and configure alarms
+- AWS IAM to configure permissions
+- AWS CloudTrail to audit requests made to the services
+- AWS Data Pipeline to schedule and start your clusters
