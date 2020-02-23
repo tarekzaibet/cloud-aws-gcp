@@ -768,90 +768,121 @@ Different ways :
 - Scan the entire table and then filter out data
 - Returns up to 1 MB of data - use pagination to keep on reading
 - Consumers a lot of RCU
-- Limit impact using Limit or reduce the size of the result and pause 
+- Limit impact using Limit or reduce the size of the result and pause
 - For faster performance, use parallel scans :  
   - Multiple instances scan multiple partitions at the same time
   - Increases the throughput and RCU consumed
   - Limit the impact of parallel scans just like you would for Scans
 - Can use a ProjectionExpression + FilterExpression (no change to RCU)
 
-### LSI & GSI 
+### LSI & GSI
 
 #### Local Secondary Index (LSI)
-- Alternate range key for your table, local to the hash key 
-- Up yo five local secondary indexes per table 
-- The sort key consists of exactly one scalar attribute 
-- The attribute that you choose must be a scalar string, number of binary 
+- Alternate range key for your table, local to the hash key
+- Up yo five local secondary indexes per table
+- The sort key consists of exactly one scalar attribute
+- The attribute that you choose must be a scalar string, number of binary
 - LSI must be defined at table creation
 
 #### Global Secondary Indes (GSI)
 
-- Used to speed up queries on non-key attributes 
-- Consists of partition key and optional sort key 
-- The index created is a new "table" and we can project attributes on it 
+- Used to speed up queries on non-key attributes
+- Consists of partition key and optional sort key
+- The index created is a new "table" and we can project attributes on it
   - the partition key and sort key of the original table are always projected (keys_only)
   - can specifiy extra attributes to project (INCLUDE)
   - can use all attributes from main table (ALL)
-- we must define RCU / WCU for the index 
+- we must define RCU / WCU for the index
 - we can modify GSI after table creation (not LSI)
 
-### DynamoDB - DAX 
+### DynamoDB - DAX
 
-- it's dynamodb accelerator 
+- it's dynamodb accelerator
 - secure (encryption at rest with KMS, VPC, IAM, CloudTrail..)
 - Multi AZ (3 node minimum recommended for production)
-- Up to 10 node in the cluster 
-- 5 minutes TTL for cache by default 
-- Micro second latency for cached reads & queries 
-- Seamless cache for DynamoDB, no application re-write 
+- Up to 10 node in the cluster
+- 5 minutes TTL for cache by default
+- Micro second latency for cached reads & queries
+- Seamless cache for DynamoDB, no application re-write
 
-### DynamoDB - Streams 
+### DynamoDB - Streams
 
-- Changes in dynamo (create, update, delete) can be stored in a DynamoDB Stream 
-- the stream can be read by aws lambda and then we can do : 
+- Changes in dynamo (create, update, delete) can be stored in a DynamoDB Stream
+- the stream can be read by aws lambda and then we can do :
   - react to changes in real time (welcome message to new users)
-  - create derivative tables / views 
-  - insert into elasticsearch 
-- can implement Cross Region Replication using Streams 
-- Stream has 24 hours of data retention 
+  - create derivative tables / views
+  - insert into elasticsearch
+- can implement Cross Region Replication using Streams
+- Stream has 24 hours of data retention
 - Configurable batch size (up to 1000 rows, 6 MB)
 
-#### DynamoDB Steams - Kinesis Adapter 
+#### DynamoDB Steams - Kinesis Adapter
 
-- you can use kinesis KCL to consumer from dynamodb streams 
-- need to add "Kinesis Adapter" library 
-- the interface and programming is exactly the same as kinesis streams 
-- alternative to use aws lambda 
+- you can use kinesis KCL to consumer from dynamodb streams
+- need to add "Kinesis Adapter" library
+- the interface and programming is exactly the same as kinesis streams
+- alternative to use aws lambda
 
-### DynamoDB TTL 
+### DynamoDB TTL
 
-- automatically delete an item after an expiry date /time 
-- provided with no extra cost, no WCU or RCU are used 
-- a background task operated by dyanmodb itself 
-- helps reduce storage and manage the table size over time 
-- heps adhere to regulatory norms 
+- automatically delete an item after an expiry date /time
+- provided with no extra cost, no WCU or RCU are used
+- a background task operated by dyanmodb itself
+- helps reduce storage and manage the table size over time
+- heps adhere to regulatory norms
 - ttl is enabled per row (you define a ttl column and add a date there)
-- typically delete expired items with 46 hours of expiration 
-- deleted items due to TTL are also deleted in GSI / LSI 
-- Streams can help recover expired items 
+- typically delete expired items with 46 hours of expiration
+- deleted items due to TTL are also deleted in GSI / LSI
+- Streams can help recover expired items
 
-### DynamoDB - Security and other features 
+### DynamoDB - Security and other features
 
-- Security : 
-  - VPC endpoints available to access DynamoDB without internet 
-  - Acces controlled by IAM 
+- Security :
+  - VPC endpoints available to access DynamoDB without internet
+  - Acces controlled by IAM
   - encryption at rest using KMS
-  - encryption ins transit using ssl/tls 
-- Backup and restore feature available 
-  - point in time restore like RDS 
-  - no performance impact 
-- Global Tables 
-  - multi region, fully replciated, high performance 
-- DMS can be used to migrate to dynamoDB 
-- you can launch a local dynamodb on your computer for development purposes 
+  - encryption ins transit using ssl/tls
+- Backup and restore feature available
+  - point in time restore like RDS
+  - no performance impact
+- Global Tables
+  - multi region, fully replciated, high performance
+- DMS can be used to migrate to dynamoDB
+- you can launch a local dynamodb on your computer for development purposes
 
-### Elasticahe 
+### Elasticahe
 
- - dont come often in exam 
- - managed redis or memecached 
- - in memory db with high performance and low latency 
+ - dont come often in exam
+ - managed redis or memecached
+ - in memory db with high performance and low latency
+
+# 3 - Processing
+
+## AWS Lambda
+
+- a way to run code snippets "in the cloud"
+  - serverless
+  - continuous scaling
+- often used to process data as it's moved around
+- main uses of lambda :
+  - real time file processing
+  - real time stream Processing
+  - ETL
+  - Cron replacement
+  - Process AWS events
+
+- Lambda Triggers :
+  - S3, Kinesis (steams & firehose), dynamodb, sns, sqs
+   config, iot button, lex,cloudwatch, api gateway, cloudfront
+   cloudformation, cognito, codecommit
+
+- Lambda Languages :
+  - Node JS, Python, Java, C#, Go, Powershell, Ruby
+
+### Lambda and Elasticsearch Services
+
+### Lambda and Data Pipeline
+
+### Lambda and Redshift
+
+### Lambda and Kinesis
