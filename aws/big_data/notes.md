@@ -922,4 +922,88 @@ Different ways :
 
 - Long running applications
 - Dynamic websites
-- Stateful applications 
+- Stateful applications
+
+## AWS Glue
+
+- Can define table definitions and perform ETL on your underlying data lake and provide structure to unstructured data
+- it's a serverless discovery and definition of table definitions and schema
+- run custom ETL jobs
+  - trigger-driven, on a schedule, or on demand
+  - fully managed
+  - under the hood they use apache spark
+
+
+### AWS Glue Crawler
+
+- scan your data in S3 and often the glue crawler will infer a schema automatically
+- if you have some CSV or TSV data sitting in s3 it will automatically beak out those columns for you automatically.
+- you can schedule to run the crawler periodically
+
+### AWS Glue Data Catalogue
+
+- populated by the glue crawler
+- table definition is stored in data catalogue but data remains in S3
+- data catalogue tells other services (Redshift, Athena..) how to interpret the data
+
+### How to Structure Data before using Glue ?
+
+- Glue crawler will extract partitions based on how your S3 data is organised
+- Structure data in S3 in optimal manner
+
+### Glue and Hive
+
+- Glue can integrate with hive
+- you can use your Glue Data Catalog as your metastore for hive
+- Inversly you can import a hive meta store into glue
+
+### Glue ETL
+
+- automatic code generation
+- scala or python
+- Encryption
+  - Server-side (at rest)
+  - SSL (in transit)
+- Can be event driven
+- Can provision addition "DPU's" (data processing units) to increase performance of underlying spark jobs
+- errors reported to cloudwatch
+- Transform data, Clean Data, Enrich Data (before doing analysis)
+- You can provide your own Spark or PySpark scripts
+- Target can be S3, JDBC (RDS, Redshift) or in Glue Data Catalog
+- Pay only for resources consumted
+- Jobs are run on a serverless spark platofrm
+- Glue Scheduler to schedule the jobs
+- Glue Triggers to automate job runs based on "events"
+
+#### Glue ETL - Tansformations
+- Bundled Transormation : Drop, Filter, Join, Map  
+- Machine Learning Transformations
+- Format conversions : csv, json, avro..
+- Apache Spark Transformations
+
+#### Glue Development Endpoints
+- Develop ETL scripts using a notebook
+   - then create an ETL job that runs your script
+- Endpoint is in a VPC controlled by security groups
+
+#### Running Glue Jobs
+- Time-based schedules (cron style)
+- job bookmarks :
+  - persists state from the job run
+  - prevents reprocessing of old data
+  - allows you to process new data only when re-running on a schedule
+  - works with S3 sources in a variety of formats
+  - works with relational databases via JDBC
+  - cloudwatch events
+   - fire off a lambda function or SNS notification when ETL succeeds or fails
+   - invoke EC2 run, send event to kinesis, activate a step function
+
+### Glue Cost
+- Billed by the minute for crawler and ETL jobs
+- First million objects stored and accesses are free for the glue Data Catalog
+- Development endpoints for developing ETL code charged by the minute
+
+### Glue Anti Pattern
+- Steaming data (glue is batch oriented, minimum 5 minute intervals)
+- Multiple ETL engines
+- NoSQL databases 
