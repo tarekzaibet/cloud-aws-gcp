@@ -880,9 +880,46 @@ Different ways :
   - Node JS, Python, Java, C#, Go, Powershell, Ruby
 
 ### Lambda and Elasticsearch Services
+- Data is stored in S3
+- a new object in S3 triggers a lambda function
+- lambda function process new data and sends it to Elasticsearch service
+- this is way how lambda serves as a glue between S3 and Amazon Elastic
 
 ### Lambda and Data Pipeline
+- Same process as for Amazon Elastic till trigger
+- lambda activate the pipeline with managing schedule activity
+- withe data pipeline you have to schedule activity and allocate resource
+- with lambda you can activate it (data pipeline) in a random time whenever there is a new object  
 
 ### Lambda and Redshift
+- new object in S3 triggers Lambda
+- lambda is stateless
+- store each information in dynamo db (lambda to dynamo db)
+- once there is a lot of infos in dynamoDB (by keeping track of amount of data recevied) lambda sends it all (batch) to redshift
 
 ### Lambda and Kinesis
+- from a kinesis steam, the lambda function receives an event with a batch of stream records.
+- you specify a batch size when setting up the trigger (up to 10000 records)
+- too large, a batch size can cause timeouts !
+- batches may also be split beyond lambda's payload limit (6MB)
+- Lambda will retry the batch until it succeeds or the data expires
+ - this can stall the shard if you don't handle errors properly
+ - use more shards to ensure processing isn't totally held up by errors
+- Lambda processes shard data synchronously
+
+### Lambda Costs
+
+- "pay for what you use"
+- 0.20$ / million requests
+
+### Lambda performance
+
+- High availability
+- Unlimited scalability
+- High performance (max timeout is 900 seconds)
+
+### Lambda Anti Patterns
+
+- Long running applications
+- Dynamic websites
+- Stateful applications 
